@@ -280,9 +280,9 @@ html,body{
     background:white;
 }
 p.font-italic.mb-0.text-small{
-    grid-column: span 3 !important;
+    /*grid-column: span 3 !important;
     padding-left: 5px !important;
     white-space: nowrap !important;
     overflow-x: hidden !important;
-    text-overflow: ellipsis !important;
+    text-overflow: ellipsis !important;*/
 }
