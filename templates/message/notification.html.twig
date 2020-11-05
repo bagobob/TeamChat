@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Chat'%}
+{% block body %}
+
+{% endblock %}
+{% block javascripts %}
+<script>
+//lancement serveur chat
+function NotifServer(){
+notif = new WebSocket("ws://IP_SERVER:8080");
+
+notif.onmessage = function (event) {
+console.log(event.data);
+$('.content').append('<p>'+ event.data +'</p>');
+
+}
+
+notif.onopen = function() {
+$('.content').append('<p> >>> Connected</p>');
+var token_user = *TOKEN_USER*;
+var authElements = "{\"userData\":\""+token_user+"\"}";
+notif.send(authElements);
+}
+
+notif.onerror = function(error) {
+$('.content').append('<p> >>> Error...</p>');
+//alert('error');
+}
+
+
+}
+
+NotifServer();
+</script>
+{% endblock %}

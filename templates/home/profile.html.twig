@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Profil' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row my-2 cont">
+            <div class="col-lg-8 order-lg-2">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                    </li>
+                </ul>
+                <!-- Beginning of User Profil Panel-->
+                <div class="tab-content py-4">
+                    <div class="tab-pane active" id="profile">
+                        <h2 class="mb-3 text-muted text-center profil">User Profile</h2><br>
+                        <form role="form">
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">First name</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" value="{{ app.user.firstName }}">
+                                </div>
+                            </div><br>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Last name</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" value="{{ app.user.lastName }}">
+                                </div>
+                            </div><br>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Username</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" value="{{ app.user.username }}">
+                                </div>
+                            </div><br>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Password</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="password" value="****************">
+                                </div>
+                            </div><br>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label"></label>
+                                <div class="col-lg-9">
+                                    <input type="reset" class="btn btn-danger" value="Réinitialiser">
+                                    <input type="button" class="btn btn-primary" value="Modifier">
+                                </div>
+                            </div>
+                        </form>
+                        <!--/row-->
+                    </div>
+                    <!-- End of User Profil Panel-->
+                </div>
+            </div>
+            <!-- Beginning of User Profil Picture-->
+            <div class="col-lg-4 order-lg-1 text-center">
+                <img src="{{ asset('assets/images/img1.png') }}" id="img1" width="200px" height="200" class="rounded-circle" alt="Cinque Terre">
+                <!--h6 class="mt-2" style="position:static;">Upload a different photo</h6-->
+                <label class="custom-file">
+                    <input type="file" id="file" class="custom-file-input">
+                    <span class="custom-file-control">Choose file</span>
+                </label>
+            </div>
+            <!-- End of User Profil Picture-->
+        </div>
+    </div>
+{% endblock %}
