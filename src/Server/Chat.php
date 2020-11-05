@@ -7,7 +7,7 @@ namespace App\Server;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 
-class Chat implements \Ratchet\MessageComponentInterface
+class Chat implements MessageComponentInterface
 {
 
     private $clients;
