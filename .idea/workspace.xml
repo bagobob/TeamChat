@@ -11,36 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d6031bf-2365-4b97-9106-12a3682f02ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/TeamChat.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/image.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/images/img1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/plus.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/search.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/tr.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/WebsocketServerCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/user_data.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Traits/Timestampable.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Server/Chat.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Websocket/MessageHandler.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/home/annuary.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/home/profile.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/message/chat.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/message/notification.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/partials/_flash_messages.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/partials/_footer.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/partials/_nav.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Chat.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Chat.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/message/chat.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/message/chat.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,6 +155,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -200,7 +174,7 @@
       <option name="presentableId" value="Default" />
       <updated>1604533166451</updated>
       <workItem from="1604533167555" duration="7184000" />
-      <workItem from="1604567948578" duration="816000" />
+      <workItem from="1604567948578" duration="9777000" />
     </task>
     <servers />
   </component>
