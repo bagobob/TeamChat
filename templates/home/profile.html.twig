@@ -4,14 +4,17 @@
 
 {% block body %}
     <div class="container">
-        <div class="row my-2 cont">
-            <div class="col-lg-8 order-lg-2">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
-                    </li>
-                </ul>
-                <!-- Beginning of User Profil Panel-->
+    <div class="row my-2 cont">
+        <div class="col-lg-8 order-lg-2">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Mot de passe</a>
+                </li>
+            </ul>
+              <!-- Beginning of User Profil Panel-->
                 <div class="tab-content py-4">
                     <div class="tab-pane active" id="profile">
                         <h2 class="mb-3 text-muted text-center profil">User Profile</h2><br>
@@ -34,7 +37,25 @@
                                     <input class="form-control" type="text" value="{{ app.user.username }}">
                                 </div>
                             </div><br>
+                            
                             <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label"></label>
+                                <div class="col-lg-9">
+                                    <input type="reset" class="btn btn-danger" value="Réinitialiser">
+                                    <input type="submit" class="btn btn-primary" value="Modifier mon mot de passe" >
+                                </div>
+                            </div>
+                        </form>
+                        <!--/row-->
+                    </div>
+                    <!-- End of User Profil Panel-->
+                    
+
+                <!-- Beginning of User Edit Panel-->
+                <div class="tab-pane" id="edit">
+                    <form role="form">
+                      <h2 class="mb-3 text-muted text-center profil">Modifier le mot de passe</h2><br>
+                        <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Mot de passe actuel</label>
                                 <div class="col-lg-9">
                                     <input class="form-control" type="password" name="old_password" value="*******">
@@ -53,19 +74,18 @@
                                 </div>
                             </div><br>
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label"></label>
-                                <div class="col-lg-9">
-                                    <input type="reset" class="btn btn-danger" value="Réinitialiser">
-                                    <input type="submit" class="btn btn-primary" value="Modifier mon mot de passe" >
-                                </div>
+                            <label class="col-lg-3 col-form-label form-control-label"></label>
+                            <div class="col-lg-9">
+                                <input type="reset" class="btn btn-secondary" value="Cancel">
+                                <input type="button" class="btn btn-primary" value="Save Changes">
                             </div>
-                        </form>
-                        <!--/row-->
-                    </div>
-                    <!-- End of User Profil Panel-->
+                        </div>
+                    </form>
                 </div>
+                <!-- End of User Edit Panel-->
             </div>
-            <!-- Beginning of User Profil Picture-->
+        </div>
+        <!-- Beginning of User Profil Picture-->
             <div class="col-lg-4 order-lg-1 text-center">
                 <img src="{{ asset('assets/images/img1.png') }}" id="img1" width="200px" height="200" class="rounded-circle" alt="Cinque Terre">
                 <!--h6 class="mt-2" style="position:static;">Upload a different photo</h6-->
@@ -75,6 +95,6 @@
                 </label>
             </div>
             <!-- End of User Profil Picture-->
-        </div>
     </div>
+</div>
 {% endblock %}
