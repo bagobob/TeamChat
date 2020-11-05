@@ -77,7 +77,7 @@ class HomeController extends AbstractController
     }
     
     /**
- * @Route("/profil/edit", name="update_profil")
+ * @Route("/profil/edit", name="update_pass")
  */
 public function update_pass(Request $request,UserPasswordEncoderInterface $passwordEncoder)
 {
@@ -102,6 +102,28 @@ public function update_pass(Request $request,UserPasswordEncoderInterface $passw
 
         return $this->redirectToRoute('update_profil');
     }
+    return $this->render('home/profile.html.twig', [
+        'controller_name' => 'HomeController',
+    ]);
+    
+}
+
+    /**
+ * @Route("/profil/editprofile", name="update_pseudo")
+ */
+public function update_pseudo(Request $request)
+{
+    if (!($this->getUser())) {
+        $this->addFlash('error', 'You must logged in');
+
+        return $this->redirectToRoute('app_login');
+    }
+    $entityManager = $this->getDoctrine()->getManager();
+    dump($request);
+    $new_username = $request->get('username'); 
+    $user = $this->getUser();
+    $user->setUsername($new_username);
+    $entityManager->flush();
     return $this->render('home/profile.html.twig', [
         'controller_name' => 'HomeController',
     ]);
