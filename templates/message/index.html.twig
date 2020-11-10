@@ -14,101 +14,27 @@
             <!-- Users box-->
             <div class="col-5 px-0">
                 <div class="bg-white">
-
                     <div class="bg-gray px-4 py-2 bg-light">
                         <p class="h5 mb-0 py-1">Recent</p>
                     </div>
-
                     <div class="messages-box">
                         <div class="list-group rounded-0">
-                            <a class="list-group-item list-group-item-action active text-white rounded-0">
+                            {% for conv in conversationArray %}
+                            <a href="#" class="list-group-item list-group-item-action {% if conv.id == IdConvActive %} active {% endif %}list-group-item-light rounded-0 conv" data-id="{{ conv.id }}">
                                 <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
                                     <div class="media-body ml-4">
                                         <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">25 Dec</small>
+                                            {% for part in conv.participants %}
+                                                {% if part.user.id != userId %}
+                                                    <h6 class="mb-0">{{ part.user.firstname }} {{ part.user.lastname }}</h6><small class="small font-weight-bold">25 Dec</small>
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
-                                        <p class="font-italic mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                        <p class="font-italic mb-0 text-small">  {{ conv.lastMessage.content }} </p>
                                     </div>
                                 </div>
                             </a>
-
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                                    <div class="media-body ml-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">14 Dec</small>
-                                        </div>
-                                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur. incididunt ut labore.</p>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                                    <div class="media-body ml-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">9 Nov</small>
-                                        </div>
-                                        <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                                    <div class="media-body ml-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">18 Oct</small>
-                                        </div>
-                                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                                    <div class="media-body ml-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">17 Oct</small>
-                                        </div>
-                                        <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                                    <div class="media-body ml-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">2 Sep</small>
-                                        </div>
-                                        <p class="font-italic text-muted mb-0 text-small">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                                    <div class="media-body ml-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">30 Aug</small>
-                                        </div>
-                                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                <div class="media"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                                    <div class="media-body ml-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-3">
-                                            <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">21 Aug</small>
-                                        </div>
-                                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                    </div>
-                                </div>
-                            </a>
-
+                            {% endfor %}
                         </div>
                     </div>
                     {% block left %}
@@ -117,82 +43,140 @@
                 </div>
             </div>
             <!-- Chat Box-->
-            <div class="col-7 px-0">
-                <div class="px-4 py-5 chat-box bg-white">
-                    <!-- Sender Message-->
-                    <div class="media w-50 mb-3"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                        <div class="media-body ml-3">
-                            <div class="bg-light rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-muted">Test which is a new approach all solutions</p>
-                            </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
-                        </div>
-                    </div>
 
-                    <!-- Reciever Message-->
-                    <div class="media w-50 ml-auto mb-3">
-                        <div class="media-body">
-                            <div class="bg-primary rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-white">Test which is a new approach to have all solutions</p>
-                            </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
-                        </div>
-                    </div>
-
-                    <!-- Sender Message-->
-                    <div class="media w-50 mb-3"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                        <div class="media-body ml-3">
-                            <div class="bg-light rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-muted">Test, which is a new approach to have</p>
-                            </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
-                        </div>
-                    </div>
-
-                    <!-- Reciever Message-->
-                    <div class="media w-50 ml-auto mb-3">
-                        <div class="media-body">
-                            <div class="bg-primary rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                            </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
-                        </div>
-                    </div>
-
-                    <!-- Sender Message-->
-                    <div class="media w-50 mb-3"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
-                        <div class="media-body ml-3">
-                            <div class="bg-light rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                            </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
-                        </div>
-                    </div>
-
-                    <!-- Reciever Message-->
-                    <div class="media w-50 ml-auto mb-3">
-                        <div class="media-body">
-                            <div class="bg-primary rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                            </div>
-                            <p class="small text-muted">12:00 PM | Aug 13</p>
-                        </div>
-                    </div>
-
+            <div class="col-7 px-0 " >
+                {% for conv in conversationArray %}
+                <div class="px-4 py-5 chat-box bg-white msg-conv" data-id="{{ conv.id }}" {% if conv.id != IdConvActive %}hidden {% endif %} >
+                    {% for msg in conv.messages %}
+                            {% if msg.user.id != userId %}
+                                <!-- Sender Message-->
+                                <div class="media w-50 mb-3"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+                                    <div class="media-body ml-3">
+                                        <div class="bg-light rounded py-2 px-3 mb-2">
+                                            <p class="text-small mb-0 text-muted">{{ msg.content }}</p>
+                                        </div>
+                                        <p class="small text-muted">12:00 PM | Aug 13</p>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <!-- Receiver Message-->
+                                <div class="media w-50 ml-auto mb-3">
+                                    <div class="media-body">
+                                        <div class="bg-primary rounded py-2 px-3 mb-2">
+                                            <p class="text-small mb-0 text-white">{{ msg.content }}</p>
+                                        </div>
+                                        <p class="small text-muted">12:00 PM | Aug 13</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                    {% endfor %}
                 </div>
-
-                <!-- Typing area -->
-                <form action="#" class="bg-light">
+                {% endfor %}
+                <div id="mercure-content-receiver"></div>
+                <form class="bg-light" id="mercure-message-form" action="{{ path('sendMessage') }}" method="post">
                     <div class="input-group">
-                        <input type="text" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
+                        <input id="mercure-message-input" name="message" type="text" placeholder="Type a message" aria-describedby="mercure-message-btn" class="form-control rounded-0 border-0 py-4 bg-light">
                         <div class="input-group-append">
-                            <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+                            <button id="mercure-message-btn" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane" value="Send"></i></button>
                         </div>
+                        <input id="id-conv-input" name="id-conv" type="hidden" value="2">
                     </div>
                 </form>
+
 
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            [].forEach.call(document.querySelectorAll('a.conv'), function(el) {
+                el.addEventListener('click', function() {
 
+                    //hide and desactive
+                    [].forEach.call(document.querySelectorAll('a.conv'), function(el) {
+                        el.classList.remove("active");
+                    });
+                    [].forEach.call(document.querySelectorAll('div.msg-conv'), function(el) {
+                        el.setAttribute("hidden","");
+                    })
+
+                    //show and active
+                    var conv_id_active = el.getAttribute("data-id");
+                    document.querySelector('div.msg-conv[data-id="'+conv_id_active+'"]').removeAttribute("hidden");
+                    el.classList.add("active");
+
+                    //change conversation submit
+                    document.getElementById("id-conv-input").setAttribute('value',conv_id_active);
+                })
+            })
+        });
+
+
+        const _receiver = document.getElementById('mercure-content-receiver');
+        const _messageInput = document.getElementById('mercure-message-input');
+        const _sendForm = document.getElementById('mercure-message-form');
+
+        const sendMessage = (message) => {
+            if (message === '') {
+                return;
+            }
+            var form = new FormData(document.getElementById('mercure-message-form'));
+            fetch(_sendForm.action, {
+                method: _sendForm.method,
+                body: form,
+            }).then(() => {
+                _messageInput.value = '';
+            });
+        };
+
+        _sendForm.onsubmit = (evt) => {
+            sendMessage(_messageInput.value);
+
+            evt.preventDefault();
+            return false;
+        };
+
+
+        function addMessage(user_id,message,conv_id) {
+            let my_user_id = {{ userId }};
+
+            if(my_user_id == user_id) {
+                var messageHTML ="<div class=\"media w-50 ml-auto mb-3\">"+
+                    "<div class=\"media-body\">"+
+                    "<div class=\"bg-primary rounded py-2 px-3 mb-2\">"+
+                    "<p class=\"text-small mb-0 text-white\">"+ message +"</p>"+
+                    "</div>"+
+                    "<p class=\"small text-muted\">12:00 PM | Aug 13</p>"+
+                    "</div>"+
+                    "</div>" ;
+            } else {
+                var messageHTML ="<div class='media w-50 mb-3'><img src='https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg' alt='user' width='50' class='rounded-circle'> <div class='media-body ml-3'><div class=\"bg-light rounded py-2 px-3 mb-2\"> <p class='message text-small mb-0 text-muted'>"+ message +"</p>\n" +
+                    "                            </div>\n" +
+                    "                            <p class=' small text-muted'>12:00 PM | Aug 13</p>\n" +
+                    "                        </div>\n" +
+                    "                    </div>" ;
+            }
+            document.querySelector('div.msg-conv[data-id="'+conv_id+'"]').innerHTML += messageHTML
+        }
+
+
+
+        const url = new URL('{{ mercure_publish_url }}');
+
+        {% for conv in conversationArray %}
+        url.searchParams.append('topic', {{ conv.id }});
+        {% endfor %}
+
+        const eventSource = new EventSource(url, { withCredentials: true });
+        eventSource.onmessage = (evt) => {
+            const data = JSON.parse(evt.data);
+            console.log('new message data:',data);
+            if (!data.message) {
+                return;
+            }
+            addMessage(data.userId,data.message,data.convId);
+        };
+    </script>
 {% endblock %}
