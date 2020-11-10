@@ -99,9 +99,10 @@ public function update_pass(Request $request,UserPasswordEncoderInterface $passw
         $entityManager->flush();
     } else {
         $this->addFlash('error', 'Mot de passe incorrect ');
-
         return $this->redirectToRoute('update_profil');
-    }
+     }
+    
+    
     return $this->render('home/profile.html.twig', [
         'controller_name' => 'HomeController',
     ]);
