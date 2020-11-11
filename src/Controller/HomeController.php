@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 
-use App\Entity\Agenda;
+use App\Entity\Agendauser;
+use App\Entity\User;
 use App\Form\UserFormType;
-use App\Repository\AgendaRepository;
+use App\Entity\Agendaparticipant;
+use App\Repository\AgendauserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -16,8 +18,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+
 class HomeController extends AbstractController
 {
+    
+    /**
+     * @var AgendauserRepository
+     */
+    private $AgendauserRepository;
     /**
      * @Route("/", name="app_home")
      */
@@ -53,12 +61,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/annuaire", name="app_annuary", methods={"GET", "POST"})
      * @param UserRepository $userRepository
-     * @param AgendaRepository $agendaRepository
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
-    public function show_annuary(UserRepository $userRepository,AgendaRepository $agendaRepository,Request $request,EntityManagerInterface $em) :Response
+    public function show_annuary(UserRepository $userRepository,Request $request,EntityManagerInterface $em) :Response
     {
         if (!($this->getUser())) {
             $this->addFlash('error', 'You must logged in');
@@ -66,42 +73,84 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         $users = $userRepository->findBy([],['createdAt' => 'DESC']);
-        $agendaUser = new Agenda;
+        $agendaUser = new Agendauser;
 
-        $form = $this->createForm(UserFormType::class,$agendaUser);
+        // $form = $this->createForm(UserFormType::class,$agendaUser);
 
-        $form->handleRequest($request);
+        // $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
-            $em->persist($agendaUser);
-            $em->flush();
+        // if($form->isSubmitted() && $form->isValid())
+        // {
+        //     $em->persist($agendaUser);
+        //     $em->flush();
 
-            $this->addFlash('success', 'User successfully added to agenda');
+        //     $this->addFlash('success', 'User successfully added to agenda');
 
-            return $this->redirectToRoute('app_agenda');
-        }
+        //     return $this->redirectToRoute('app_agenda');
+        // }
 
         return $this->render('home/annuary.html.twig', [
             'controller_name' => 'HomeController',
             'users'    => $users,
-            'form' => $form->createView()
+            //'form' => $form->createView()
         ]);
     }
 
     /**
+     * @Route("/addAgenda", name="addAgenda", methods="GET")
+     * @param Request $request
+     */
+
+    public function addAgenda(Request $request){
+
+        if ($request->isMethod('GET')){
+           
+            //dd($this->AgendauserRepository->findAgendaByUser($this->getuser));
+            //if($agendauser->getUser($this->getUser())==null){
+
+                $agendauser = new Agendauser();
+                $participant1 = new Agendaparticipant();
+                $userId = $request->get('iduser');
+                $user=$this->getDoctrine()->getRepository(User::class)->find(['id' => $userId ]);
+                $agendauser->setUser($this->getUser());
+                $participant1->setAgendauser($agendauser);
+                $participant1->setUser($user);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($agendauser);
+                $entityManager->persist($participant1);
+                $entityManager->flush();
+                return $this->redirectToRoute('addAgenda');
+            //}
+           // else{
+            //     $participant1 = new Agendaparticipant();
+            //     $userId = $request->get('iduser');
+            //     $user=$this->getDoctrine()->getRepository(User::class)->find(['id' => $userId ]);
+                
+            //     $agendauser=$this->getDoctrine()->getRepository(Agendauser::class)->find(['user_id' => $this->getUser()->getId() ]);
+            //     $participant1->setAgendauser($agendauser);
+            //     $participant1->setUser($user);
+            //     $entityManager = $this->getDoctrine()->getManager();
+            //     $entityManager->persist($participant1);
+            //     $entityManager->flush();
+            //     return $this->redirectToRoute('addAgenda');
+            // }
+        }
+    }
+
+    /**
      * @Route("/agenda", name="app_agenda", methods="GET")
-     * @param AgendaRepository $agendaRepository
+     * @param AgendauserRepository $agendauserRepository
      * @return Response
      */
-    public function show_agenda(AgendaRepository $agendaRepository) :Response
+    public function show_agenda(AgendauserRepository $agendauserRepository) :Response
     {
         if (!($this->getUser())) {
             $this->addFlash('error', 'You must logged in');
 
             return $this->redirectToRoute('app_login');
         }
-        $users = $agendaRepository->findBy([],['createdAt' => 'DESC']);
+        //dd()
+        $users = $agendauserRepository->findBy([],['id' => 'DESC']);
 
 
 
