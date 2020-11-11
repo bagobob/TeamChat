@@ -15,7 +15,8 @@
       <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/MessageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/MessageController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/message/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/message/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/annuary.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/annuary.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/_nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/_nav.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +189,15 @@
       <workItem from="1604784214188" duration="39408000" />
       <workItem from="1604924706450" duration="12393000" />
       <workItem from="1604995513265" duration="1602000" />
+<<<<<<< Updated upstream
       <workItem from="1605040380804" duration="11549000" />
+=======
+<<<<<<< HEAD
+      <workItem from="1605029765100" duration="15014000" />
+=======
+      <workItem from="1605040380804" duration="11549000" />
+>>>>>>> 2333a91490291f3c4a3ab40a3351f13ab38f3dd7
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
@@ -216,15 +225,35 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="206" y="313" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604539565458" />
-    <state x="168" y="220" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1604854715686">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="168" y="220" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1604854715686" />
-    <state x="210" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604536749973" />
-    <state x="298" y="246" key="NewPhpClassDialog" timestamp="1604539761829">
+    <state x="210" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605055349641">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="298" y="246" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604539761829" />
+    <state x="168" y="220" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1604854715686" />
+    <state x="210" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605055349641" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1605033105048">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1605033105048" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1605029841136">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605029841136" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1605029841135">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605029841135" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1605029841135">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605029841135" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1605029841136">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605029841136" />
+    <state x="894" y="283" key="NewPhpClassDialog" timestamp="1605037262860">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="894" y="283" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605037262860" />
     <state x="314" y="447" key="NewPhpFileDialog" timestamp="1604537647004">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
