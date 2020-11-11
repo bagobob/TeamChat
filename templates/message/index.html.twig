@@ -9,14 +9,44 @@
             <h1 class="display-4 text-white">Messages Chat</h1>
             <p class="text-white lead mb-3">Ici on retrouve toutes les discussions</p>
         </header-->
-
         <div class="row rounded-lg overflow-hidden shadow">
             <!-- Users box-->
             <div class="col-5 px-0">
                 <div class="bg-white">
-                    <div class="bg-gray px-4 py-2 bg-light">
-                        <p class="h5 mb-0 py-1">Recent</p>
+                    <div class="bg-gray px-4 py-2 bg-light row" id="test">
+                        <div class="col-md-10">
+                            <p class="h5 mb-0 py-1" style="margin-top:5px;">Recent</p>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="w3-container">
+                                <button class="bt" onclick="document.getElementById('id01').style.display='block'"><img width="30px" height="30px" src="{{ asset('assets/images/plus.png') }}"></button>
+                                <div id="id01" class="w3-modal">
+                                    <form method="POST" action="/message">
+                                        <div class="w3-modal-content w3-card-4">
+                                            <header class="modal-header">
+                                                <span onclick="document.getElementById('id01').style.display='none'"
+                                                      class="w3-button w3-display-topright">&times;</span>
+                                                <h3>Nouvelle discussion</h3>
+                                            </header>
+                                            <div class="w3-container">
+                                                <br>
+                                                <div class="form-group">
+                                                    <label for="usr">Nom d'utilisateur</label>
+                                                    <input type="text" class="form-control" id="usr" name="iduser" placeholder="Entrer le nom d'utilisateur d'un ami">
+                                                    <label for="usr">Message</label>
+                                                    <input type="text" class="form-control" id="usr" name="msg" placeholder="Entrer un message">
+                                                </div>
+                                            </div>
+                                            <footer class="modal-footer" >
+                                                <button style="display:block; margin:auto;" type="submit" class="btn btn-primary">Créer une discussion</button>
+                                            </footer>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="messages-box">
                         <div class="list-group rounded-0">
                             {% for conv in conversationArray %}
@@ -26,7 +56,7 @@
                                         <div class="d-flex align-items-center justify-content-between mb-1">
                                             {% for part in conv.participants %}
                                                 {% if part.user.id != userId %}
-                                                    <h6 class="mb-0">{{ part.user.firstname }} {{ part.user.lastname }}</h6><small class="small font-weight-bold">25 Dec</small>
+                                                    <h6 class="mb-0">{{ part.user.firstname }} {{ part.user.lastname }}</h6><small class="small font-weight-bold"></small>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>
@@ -55,7 +85,7 @@
                                         <div class="bg-light rounded py-2 px-3 mb-2">
                                             <p class="text-small mb-0 text-muted">{{ msg.content }}</p>
                                         </div>
-                                        <p class="small text-muted">12:00 PM | Aug 13</p>
+                                        <p class="small text-muted">{{ msg.createdAt|date("F jS \\a\\t g:ia") }}</p>
                                     </div>
                                 </div>
                             {% else %}
@@ -65,7 +95,7 @@
                                         <div class="bg-primary rounded py-2 px-3 mb-2">
                                             <p class="text-small mb-0 text-white">{{ msg.content }}</p>
                                         </div>
-                                        <p class="small text-muted">12:00 PM | Aug 13</p>
+                                        <p class="small text-muted">{{ msg.createdAt|date("F jS \\a\\t g:ia") }}</p>
                                     </div>
                                 </div>
                             {% endif %}
