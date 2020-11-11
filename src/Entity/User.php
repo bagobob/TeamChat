@@ -60,6 +60,11 @@ class User implements UserInterface
     private $participants;
 
     /**
+     * @ORM\OneToMany(targetEntity="Agendaparticipant",mappedBy="user")
+     */
+    private $agendaparticipant;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Message",mappedBy="user")
      */
     private $messages;
@@ -69,10 +74,13 @@ class User implements UserInterface
      */
     private $status;
 
+
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->agendaparticipant = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -243,6 +251,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($message->getUser() === $this) {
                 $message->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Agendaparticipant[]
+     */
+    public function getAgendaparticipant(): Collection
+    {
+        return $this->agendaparticipant;
+    }
+
+    public function addAgendaparticipant(Agendaparticipant $agendaparticipant): self
+    {
+        if (!$this->agendaparticipant->contains($agendaparticipant)) {
+            $this->agendaparticipant[] = $agendaparticipant;
+            $agendaparticipant->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAgendaparticipant(Agendaparticipant $agendaparticipant): self
+    {
+        if ($this->agendaparticipant->removeElement($agendaparticipant)) {
+            // set the owning side to null (unless already changed)
+            if ($agendaparticipant->getUser() === $this) {
+                $agendaparticipant->setUser(null);
             }
         }
 
