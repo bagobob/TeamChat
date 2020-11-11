@@ -54,21 +54,10 @@
                 <td> {{ user.status }} </td>
                 <td> {{ user.createdAt|date('Y-m-d H:i:s') }} </td>
                 <td>
-                    <form action="{{ path('addAgenda') }}" method="GET">
-                        <input type="hidden" value="{{ user.id }}" name="iduser">
+                    <form action="{{ path('app_annuary') }}" method="POST">
+                        <input type="hidden" value="{{ user.id }}" name="idUser">
                         <button type="submit"> <i class="fas fa-heart fa-lg" style="color: red"></i> </button>
                     </form>
-
-                    <div style="display:none;">
-                        <form id="js-user-add-favorite" action="{{ path('app_annuary') }}" method="post" style="display:none;">
-                            <input type="text" value=" {{ user.firstName }}" name=" {{ user.firstName }}">
-                            <input type="text" value=" {{ user.lastName }}" name=" {{ user.lastName }}">
-                            <input type="text" value=" {{ user.userName }}" name=" {{ user.userName }}">
-                            <input type="submit" value="Valider" class="btn btn-primary btn-block">
-                        </form>
-                    </div>
-
-
                 </td>
             </tr>
         {% endfor %}
