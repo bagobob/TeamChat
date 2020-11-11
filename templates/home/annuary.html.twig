@@ -29,8 +29,8 @@
 <main class="container" role="main">
 
 
-    <h1 class="text-muted text-center mb-3"> Bienvenue sur la page d'Annuaire </h1>
-
+    <!--h1 class="text-muted text-center mb-3"> Bienvenue sur la page d'Annuaire </h1-->
+    <br>
     <h2 class='mb-3'>Liste Des Contacts</h2>
 
 
@@ -54,7 +54,10 @@
                 <td> {{ user.status }} </td>
                 <td> {{ user.createdAt|date('Y-m-d H:i:s') }} </td>
                 <td>
-                    <a href="#" onclick="event.preventDefault(); confirm('Voulez vous ajouter ce contact comme favori?') && document.getElementById('js-user-add-favorite').submit();"> <i class="fas fa-heart fa-lg" style="color: red"></i> </a>
+                    <form action="{{ path('addAgenda') }}" method="GET">
+                        <input type="hidden" value="{{ user.id }}" name="iduser">
+                        <button type="submit"> <i class="fas fa-heart fa-lg" style="color: red"></i> </button>
+                    </form>
 
                     <div style="display:none;">
                         <form id="js-user-add-favorite" action="{{ path('app_annuary') }}" method="post" style="display:none;">
