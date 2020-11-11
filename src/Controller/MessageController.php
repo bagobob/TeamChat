@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Conversation;
 use App\Entity\Message;
+use App\Entity\Participant;
+use App\Entity\User;
 use App\Repository\ConversationRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,9 +33,9 @@ class MessageController extends AbstractController
         $this->conversationRepository = $conversationRepository;
     }
     /**
-     * @Route("/message", name="message",methods="GET")
+     * @Route("/message", name="message")
      */
-    public function index(CookieGenerator $cookieGenerator): Response
+    public function index(CookieGenerator $cookieGenerator,Request $request): Response
     {
         $conversationArray = [];
         if (!($this->getUser())) {
@@ -63,7 +65,30 @@ class MessageController extends AbstractController
             'userId' => $userId,
         ]);
         $response->headers->setCookie($cookieGenerator->generate());
-
+        //ajouter une conversation
+        if ($request->isMethod('POST')){
+            $conversation1 = new Conversation();
+            $message1=new Message();
+            $participant1 = new Participant();
+            $participant2 = new Participant();
+            $userId = $request->get('iduser');
+            $content=$request->get('msg');
+            $user=$this->getDoctrine()->getRepository(User::class)->find(['id' => $userId ]);
+            $participant1->setConversation($conversation1);
+            $participant1->setUser($user);
+            $participant2->setConversation($conversation1);
+            $participant2->setUser($this->getUser());
+            $message1->setContent($content);
+            $message1->setUser($this->getUser());
+            $message1->setConversation($conversation1);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($conversation1);
+            $entityManager->persist($participant1);
+            $entityManager->persist($message1);
+            $entityManager->persist($participant2);
+            $entityManager->flush();
+            return $this->redirectToRoute('message');
+        }
 
         return $response;
     }
@@ -108,5 +133,6 @@ class MessageController extends AbstractController
 
         return $this->redirectToRoute('message');
     }
+
 
 }
