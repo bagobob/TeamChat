@@ -18,9 +18,9 @@ html,body{
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    border-color: #00ac96 !important;
-    border-style: solid !important;
-    border-width: 0 0 1px 0 !important;
+    /*border-color: #00ac96 !important;*/
+    /*border-style: solid !important;*/
+    /*border-width: 0 0 1px 0 !important;*/
     padding: 0px !important;
     color: #495057;
     height: auto;
@@ -286,3 +286,32 @@ p.font-italic.mb-0.text-small{
     overflow-x: hidden !important;
     text-overflow: ellipsis !important;*/
 }
+.w3-button:hover{
+    background-color:inherit;
+}
+.w3-teal, .w3-hover-teal:hover{
+    color: #009688!important;
+    background-color: #eee!important;
+}
+/* .w3-button:hover:not(.active){
+    background-color: white;
+} */
+
+.bt{
+    border: none;
+    color: white;
+    padding: 5px 6px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 10px;
+}
+#usr{
+    border-radius: 5px;
+    height: 40px !important;
+    border: solid 1px;
+}
+.w3-modal-content{
+    border-radius: 10px;
+    width: 500px !important;
+}
+
