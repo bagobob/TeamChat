@@ -59,11 +59,7 @@ class User implements UserInterface
      */
     private $participants;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Agendaparticipant",mappedBy="user")
-     */
-    private $agendaparticipant;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Message",mappedBy="user")
      */
@@ -74,13 +70,18 @@ class User implements UserInterface
      */
     private $status;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Agenda::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $agendas;
+
+
 
 
     public function __construct()
     {
         $this->participants = new ArrayCollection();
         $this->messages = new ArrayCollection();
-        $this->agendaparticipant = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -258,29 +259,30 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Agendaparticipant[]
+     * @return Collection|Agenda[]
      */
-    public function getAgendaparticipant(): Collection
+    public function getAgendas(): Collection
     {
-        return $this->agendaparticipant;
+        return $this->agendas;
     }
 
-    public function addAgendaparticipant(Agendaparticipant $agendaparticipant): self
+    public function addAgenda(Agenda $agenda): self
     {
-        if (!$this->agendaparticipant->contains($agendaparticipant)) {
-            $this->agendaparticipant[] = $agendaparticipant;
-            $agendaparticipant->setUser($this);
+        if (!$this->agendas->contains($agenda)) {
+            $this->agendas[] = $agenda;
+            $agenda->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeAgendaparticipant(Agendaparticipant $agendaparticipant): self
+    public function removeAgenda(Agenda $agenda): self
     {
-        if ($this->agendaparticipant->removeElement($agendaparticipant)) {
+        if ($this->agendas->contains($agenda)) {
+            $this->agendas->removeElement($agenda);
             // set the owning side to null (unless already changed)
-            if ($agendaparticipant->getUser() === $this) {
-                $agendaparticipant->setUser(null);
+            if ($agenda->getUser() === $this) {
+                $agenda->setUser(null);
             }
         }
 
