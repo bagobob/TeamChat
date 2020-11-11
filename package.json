@@ -14,6 +14,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "darkmode-js": "^1.5.7",
         "jquery": "^3.5.1"
     }
 }
