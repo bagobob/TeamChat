@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Appchat" />
-    <title>{% block title 'Annuaire' %}</title>
+    <title>{% block title 'Agenda' %}</title>
     {% block stylesheets %}
 
         <!-- CSS only -->
@@ -40,9 +40,8 @@
             <th>Prenom</th>
             <th>Nom</th>
             <th>Pseudo</th>
-            <th>Statut</th>
             <th>Date Ajout</th>
-            <th>Ajouter Favori</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -51,20 +50,13 @@
                 <td> {{ user.firstName }} </td>
                 <td> {{ user.lastName }} </td>
                 <td> {{ user.userName }} </td>
-                <td> {{ user.status }} </td>
                 <td> {{ user.createdAt|date('Y-m-d H:i:s') }} </td>
                 <td>
-                    <a href="#" onclick="event.preventDefault(); confirm('Voulez vous ajouter ce contact comme favori?') && document.getElementById('js-user-add-favorite').submit();"> <i class="fas fa-heart fa-lg" style="color: red"></i> </a>
-
-                    <div style="display:none;">
-                        <form id="js-user-add-favorite" action="{{ path('app_annuary') }}" method="post" style="display:none;">
-                            <input type="text" value=" {{ user.firstName }}" name=" {{ user.firstName }}">
-                            <input type="text" value=" {{ user.lastName }}" name=" {{ user.lastName }}">
-                            <input type="text" value=" {{ user.userName }}" name=" {{ user.userName }}">
-                            <input type="submit" value="Valider" class="btn btn-primary btn-block">
-                        </form>
-                    </div>
-
+                    <a href="#" onclick="event.preventDefault(); confirm('Voulez vous supprimer') && document.getElementById('js-user-delete-form').submit();" class="btn btn-light"> <i class="fas fa-trash"></i> </a>
+                    <form id="js-user-delete-form" action="{{ path('delete_user', {id: user.id}) }}" method="post" style="display:none;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token('user_deletion_' ~ user.id) }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                    </form>
 
                 </td>
             </tr>
@@ -75,9 +67,8 @@
             <th>Prenom</th>
             <th>Nom</th>
             <th>Pseudo</th>
-            <th>Statut</th>
             <th>Date Ajout</th>
-            <th>Ajouter Favori</th>
+            <th>Delete</th>
         </tr>
         </tfoot>
     </table>

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index;
@@ -15,7 +16,7 @@ use Doctrine\ORM\Mapping\Index;
 class Message
 {
 
-    use Timestamp;
+    use Timestampable;
 
     /**
      * @ORM\Id
