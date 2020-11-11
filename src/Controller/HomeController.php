@@ -19,9 +19,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/home", name="app_home")
+     * @Route("/", name="app_home")
      */
-    public function home()
+    public function index()
     {
         if (!($this->getUser())) {
             $this->addFlash('error', 'You must logged in');
