@@ -49,13 +49,19 @@ input::placeholder {
 .list-group-item.active {
   z-index: 2;
   color: #fff;
-  background-color: #00ac96 !important ;
-  border-color: #00ac96 !important;
+  background-color: #254d74 !important ;
+  border-color: #254d74 !important;
 }
 .bg-primary {
-  background-color: #00ac96!important;
+  background-color: #ffcccc!important;
 }
 .fa-send:before, .fa-paper-plane:before {
   content: "\f1d8";
-  color: #00ac96 !important;
+  color:#ffcccc !important;
+}
+.navbar{
+  background-color: #254d74 !important;
+}
+.fn ,.nav-link,.navbar-brand{
+  color: #fff !important;
 }
