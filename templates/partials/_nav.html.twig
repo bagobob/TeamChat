@@ -9,36 +9,36 @@
             <ul class="navbar-nav mr-auto">
                 {% if app.user %}
                 <li class="nav-item">
-                    <a class="nav-link" href=" {{ path('app_agenda') }}"><i class="fas fa-address-book fa-lg"></i>Agenda</a>
+                    <a class="nav-link" href=" {{ path('app_agenda') }}"><i class="fas fa-address-book fa-lg fn"></i> Agenda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_annuary') }}"><i class="fas fa-list-alt fa-lg"></i>Annuaire</a>
+                    <a class="nav-link" href="{{ path('app_annuary') }}"><i class="fas fa-list-alt fa-lg fn"></i> Annuaire</a>
                 </li>
                 {% endif %}
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('chat') }}"><i class="fas fa-users"></i>Groupes</a>
+                        <a class="nav-link" href="{{ path('chat') }}"><i class="fas fa-users fn"></i> Groupes</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('message') }}"><i class="fas fa-comments fa-lg"></i>Messages</a>
+                        <a class="nav-link" href="{{ path('message') }}"><i class="fas fa-comments fa-lg fn"></i> Messages</a>
                     </li>
-                    <li class="nav-item">
+                    <!--li class="nav-item">
                         <a class="nav-link" href="#">
                             <i class="fas fa-bell fa-lg"></i>
                         </a>
-                    </li>
+                    </li-->
                     <li class="nav-item ">
-                        <a class="nav-link" href="{{ path('app_profil') }}"><i class="fas fa-user fa-lg"></i>{{ app.user.userName }}</a>
+                        <a class="nav-link" href="{{ path('app_profil') }}"><i class="fas fa-user fa-lg fn" ></i>  {{   app.user.userName }}</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt fa-lg fn"></i> Logout</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt fa-lg"></i>Login</a>
+                        <a class="nav-link" href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt fa-lg fn"></i>Login</a>
                     </li>
                 {% endif %}
             </ul>
