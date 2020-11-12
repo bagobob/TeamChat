@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Agenda;
+use App\Entity\User;
 use App\Repository\AgendaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -163,11 +164,25 @@ public function update_pass(Request $request,UserPasswordEncoderInterface $passw
         $new_pwd_encoded = $passwordEncoder->encodePassword($user, $new_pwd_confirm);  
         $user->setPassword($new_pwd_encoded); 
         $entityManager->flush();
+        $this->addFlash('info', 'Password successfully updated');
     } else {
         $this->addFlash('error', 'Mot de passe incorrect ');
         return $this->redirectToRoute('update_profil');
      }
     
+       //update json file
+       $data2 = json_decode(file_get_contents(__DIR__.'/user_data.json'), true);
+
+       //search an element which the password has been modified in the database
+       foreach($data2 as $key => $data_users){
+           if(strcmp($user->getUsername(), $data_users['username']) === 0 ){
+               if(strcmp($user->getPassword(), $data_users['encryptPassword']) !== 0){
+                   $data_users[$key]['encryptPassword'] = $user->getPassword();
+
+                   file_put_contents(__DIR__.'/user_data.json', json_encode($data2)); 
+               }
+            }
+       }
     
     return $this->render('home/profile.html.twig', [
         'controller_name' => 'HomeController',
@@ -176,7 +191,7 @@ public function update_pass(Request $request,UserPasswordEncoderInterface $passw
 }
 
     /**
-     * @Route("/profil/editprofile", name="update_pseudo")
+     * @Route("/profil/editprofile", name="update_pseudo",methods = {"GET","POST"})
      * @param Request $request
      * @return RedirectResponse|Response
      */
@@ -193,6 +208,23 @@ public function update_pseudo(Request $request)
     $user = $this->getUser();
     $user->setUsername($new_username);
     $entityManager->flush();
+    $this->addFlash('info', 'Username successfully updated');
+
+    //UUPDATE JSON FLE
+    $data2 = json_decode(file_get_contents(__DIR__.'/user_data.json'), true);
+    //get all users from the database
+    $em = $this->getDoctrine()->getManager();
+    $TheUsers = $em->getRepository(User::class)
+        ->findAll();
+
+    foreach($data2 as $key => $data_users){
+        if((strcmp($user->getFirstName(), $data_users['firstname']) === 0) && (strcmp($user->getLastName(), $data_users['lastname']) === 0)) {
+            $data2[$key]['username'] = $new_username; 
+            file_put_contents(__DIR__.'/user_data.json', json_encode($data2)); 
+            break;
+        }
+    }
+
     return $this->render('home/profile.html.twig', [
         'controller_name' => 'HomeController',
     ]);
