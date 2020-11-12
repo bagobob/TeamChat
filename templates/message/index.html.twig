@@ -21,7 +21,7 @@
                             <div class="w3-container">
                                 <button class="bt" onclick="document.getElementById('id01').style.display='block'"><img width="30px" height="30px" src="{{ asset('assets/images/plus2.png') }}"></button>
                                 <div id="id01" class="w3-modal">
-                                    <form method="POST" action="/message">
+
                                         <div class="w3-modal-content w3-card-4">
                                             <header class="modal-header">
                                                 <span onclick="document.getElementById('id01').style.display='none'"
@@ -30,37 +30,29 @@
                                             </header>
                                             <div class="w3-container">
                                                 <br>
-                                                <img src="{{ asset('assets/images/nvg.png') }}" >
+                                                <a href="#" class="grp">
+                                                    <img src="{{ asset('assets/images/nvg.png') }}" >
+                                                </a>
                                                 <br>
-                                                <div class="form-group">
+                                                <form method="POST" action="/message">
+                                                    <div class="form-group barre1">
+                                                        <br>
+                                                        <label for="usr" style="color:#ffe6e6">Nom d'utilisateur : </label>
+                                                        <input type="text" class="form-control" id="usr" name="username" placeholder="Entrer le nom d'utilisateur d'un ami" style="border: none;border-bottom: 2px solid #ffe6e6; background: none;">
+                                                        <br>
+                                                        <br>
+                                                        <label for="usr"  style="color:#ffe6e6">Message : </label>
+                                                        <input type="text" class="form-control" id="usr" name="msg" placeholder="Entrer un message" style="border: none;border-bottom: 2px solid #ffe6e6; background: none;">
+                                                    </div>
                                                     <br>
-                                                    <label for="usr" style="color:#ffe6e6">Nom d'utilisateur : </label>
-                                                    <input type="text" class="form-control" id="usr" name="iduser" placeholder="Entrer le nom d'utilisateur d'un ami" style="border: none;border-bottom: 2px solid #ffe6e6; background: none;">
-                                                    <br>
-                                                    <br>
-                                                    <label for="usr"  style="color:#ffe6e6">Message : </label>
-                                                    <input type="text" class="form-control" id="usr" name="msg" placeholder="Entrer un message" style="border: none;border-bottom: 2px solid #ffe6e6; background: none;">
-                                                </div>
-                                                <div class="form-group" hidden>
-                                                    <br>
-                                                    <label for="usr" style="color:#ffe6e6">Nom de groupe : </label>
-                                                    <input type="text" class="form-control" id="usr" name="iduser" placeholder="Donner un nom à votre groupe" style="border: none;border-bottom: 2px solid #ffe6e6; background: none;">
-                                                    <br>
-                                                    <label for="usr" style="color:#ffe6e6">Nom d'utilisateur : </label>
-                                                    <input type="text" class="form-control" id="usr" name="iduser" placeholder="Entrer le nom d'utilisateur d'un ami" style="border: none;border-bottom: 2px solid #ffe6e6; background: none;">
-                                                    <br>
-                                                    <br>
-                                                    <label for="usr"  style="color:#ffe6e6">Message : </label>
-                                                    <input type="text" class="form-control" id="usr" name="msg" placeholder="Entrer un message" style="border: none;border-bottom: 2px solid #ffe6e6; background: none;">
-                                                </div>
-                                                <br>
-                                                <button style="display:block; margin:auto; background-color:#ffe6e6;border-radius: 20px; height: 50%; color:#254d74; " type="submit" class="btn btn-primary">Créer une discussion</button>
+                                                    <button style="display:block; margin:auto; background-color:#ffe6e6;border-radius: 20px; height: 50%; color:#254d74; " type="submit" class="btn btn-primary">Créer une discussion</button>
+                                                </form>
                                                 <br><br>
                                             </div>
                                             <footer class="modal-footer" style="background:#ffe6e6;">
                                             </footer>
                                         </div>
-                                    </form>
+
                                 </div>
                             </div>
                         </div>
@@ -99,7 +91,7 @@
                     {% for msg in conv.messages %}
                             {% if msg.user.id != userId %}
                                 <!-- Sender Message-->
-                                <div class="media w-50 mb-3"><img src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" alt="user" width="50" class="rounded-circle">
+                                <div class="media w-50 mb-3"><img src="{{ asset('assets/images/profil2.jpg') }}" alt="user" width="50" class="rounded-circle">
                                     <div class="media-body ml-3">
                                         <div class="bg-light rounded py-2 px-3 mb-2">
                                             <p class="text-small mb-0 text-muted">{{ msg.content }}</p>
@@ -138,7 +130,7 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-<script>
+    <script>
     document.addEventListener("DOMContentLoaded", function() {
         [].forEach.call(document.querySelectorAll('a.conv'), function(el) {
             el.addEventListener('click', function() {
@@ -197,13 +189,13 @@
                 "<div class=\"bg-primary rounded py-2 px-3 mb-2\">"+
                 "<p class=\"text-small mb-0 text-white\">"+ message +"</p>"+
                 "</div>"+
-                "<p class=\"small text-muted\">now</p>"+
+                "<p class=\"small text-muted\">12:00 PM | Aug 13</p>"+
                 "</div>"+
                 "</div>" ;
         } else {
             var messageHTML ="<div class='media w-50 mb-3'><img src='https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg' alt='user' width='50' class='rounded-circle'> <div class='media-body ml-3'><div class=\"bg-light rounded py-2 px-3 mb-2\"> <p class='message text-small mb-0 text-muted'>"+ message +"</p>\n" +
                 "                            </div>\n" +
-                "                            <p class=' small text-muted'>now</p>\n" +
+                "                            <p class=' small text-muted'>12:00 PM | Aug 13</p>\n" +
                 "                        </div>\n" +
                 "                    </div>" ;
         }
