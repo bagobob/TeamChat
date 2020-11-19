@@ -2,19 +2,30 @@
 
 {% block title %}Hello AgendaController!{% endblock %}
 
+
+
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <select class="js-example-theme-single" style="width: 50%"></select>
+    <select class="js-example-theme-multiple" multiple="multiple" style="width: 75%"></select>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% endblock %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/hp/Documents/GitHub/TeamChat2/src/Controller/AgendaController.php'|file_link(0) }}">src/Controller/AgendaController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/hp/Documents/GitHub/TeamChat2/templates/agenda/index.html.twig'|file_link(0) }}">templates/agenda/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+
+
+        var data = JSON.parse('{{ data|json_encode|e('js') }}');
+
+    $(".js-example-theme-single").select2({
+    theme: "classic", data : data
+    });
+
+    $(".js-example-theme-multiple").select2({
+    theme: "classic",data : data
+    });
+    </script>
 {% endblock %}

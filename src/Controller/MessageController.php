@@ -71,9 +71,9 @@ class MessageController extends AbstractController
             $message1=new Message();
             $participant1 = new Participant();
             $participant2 = new Participant();
-            $userId = $request->get('iduser');
+            $username = $request->get('username');
             $content=$request->get('msg');
-            $user=$this->getDoctrine()->getRepository(User::class)->find(['id' => $userId ]);
+            $user=$this->getDoctrine()->getRepository(User::class)->findOneByUsername($username);
             $participant1->setConversation($conversation1);
             $participant1->setUser($user);
             $participant2->setConversation($conversation1);
