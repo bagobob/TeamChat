@@ -21,6 +21,12 @@ class Conversation
      */
     private $id;
     /**
+     * @ORM\OneToMany(targetEntity="Groupe",mappedBy="conversation")
+     */
+
+    private $groupes;
+
+    /**
      * @ORM\OneToMany(targetEntity="Participant",mappedBy="conversation")
      */
 
