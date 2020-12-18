@@ -26,26 +26,46 @@
                                             <header class="modal-header">
                                                 <span onclick="document.getElementById('id01').style.display='none'"
                                                       class="w3-button w3-display-topright">&times;</span>
-                                                <h3 style="color: #ffe6e6; margin :auto; display:block;">Nouvelle discussion</h3>
+                                                <h3 style="color: #254d74; margin :auto; display:block;">Nouvelle discussion</h3>
                                             </header>
                                             <div class="w3-container">
                                                 <br>
-                                                <a href="#" class="grp">
-                                                    <img src="{{ asset('assets/images/nvg.png') }}" >
+                                                <a class="grp">
+                                                    <img src="{{ asset('assets/images/discpriv.png') }}" class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Fade')">
+                                                    <img src="{{ asset('assets/images/discgrp.png') }}" class="w3-bar-item w3-button tablink" onclick="openLink(event, 'Bottom')">
                                                 </a>
                                                 <br>
-                                                <form method="POST" action="/message">
-                                                    <div class="form-group barre1">
+                                                <form method="POST" action="{{ path ('converpers') }}">
+                                                    <div id="Fade" class="w3-container convers w3-animate-opacity" style="display:block">
                                                         <br>
-                                                        <label for="usr" style="color:#ffe6e6">Nom d'utilisateur : </label>
-                                                        <input type="text" class="form-control" id="usr" name="username" placeholder="Entrer le nom d'utilisateur d'un ami" style="border: none;border-bottom: 2px solid #ffe6e6; background: none;">
+                                                        <label for="usr" style="color:#254d74">Personne : </label>
+                                                        <br>
+                                                        <select class="js-example-theme-single" name="username" style="width: 100%;border-bottom: 2px solid #254d74;"></select>
                                                         <br>
                                                         <br>
-                                                        <label for="usr"  style="color:#ffe6e6">Message : </label>
-                                                        <input type="text" class="form-control" id="usr" name="msg" placeholder="Entrer un message" style="border: none;border-bottom: 2px solid #ffe6e6; background: none;">
+                                                        <label for="usr"  style="color:#254d74">Message : </label>
+                                                        <input type="text" class="form-control" id="usr" name="msg" placeholder="Entrer un message" style="border: none;border-bottom: 2px solid #254d74;">
+                                                        <br>
+                                                        <button style="display:block; margin:auto; background-color:#ffe6e6;border:none;border-radius: 20px; height: 50%; color:#254d74; " type="submit" class="btn btn-primary">Créer une discussion</button>
                                                     </div>
-                                                    <br>
-                                                    <button style="display:block; margin:auto; background-color:#ffe6e6;border-radius: 20px; height: 50%; color:#254d74; " type="submit" class="btn btn-primary">Créer une discussion</button>
+                                                </form>
+                                                <form method="POST" action="{{ path ('convergroupe') }}">
+                                                    <div id="Bottom" class="w3-container convers w3-animate-bottom" style="display:none" style="display:none">
+                                                        <br>
+                                                        <label for="usr" style="color:#254d74">Participants : </label>
+                                                        <select class="js-example-theme-multiple" multiple="multiple" style="width: 100%;border-bottom: 2px solid #254d74;" name="username[]"></select>
+                                                        <br>
+                                                        <br>
+                                                        <label for="usr"  style="color:#254d74">Nom du groupe :</label>
+                                                        <input type="text" class="form-control" id="usr" name="nomgrp" placeholder="Entrer le nom de votre groupe" style="border: none;border-bottom: 2px solid #254d74;">
+                                                        <br>
+                                                        <br>
+                                                        <label for="usr"  style="color:#254d74">Message : </label>
+                                                        <input type="text" class="form-control" id="usr" name="msg" placeholder="Entrer un message" style="border: none;border-bottom: 2px solid #254d74;">
+                                                        <br>
+                                                        <button style="display:block; margin:auto; background-color:#ffe6e6;border:none;border-radius: 20px; height: 50%; color:#254d74; " type="submit" class="btn btn-primary">Créer une discussion</button>
+                                                        <br>
+                                                    </div>
                                                 </form>
                                                 <br><br>
                                             </div>
@@ -61,15 +81,24 @@
                     <div class="messages-box">
                         <div class="list-group rounded-0">
                             {% for conv in conversationArray %}
+
                             <a href="#" class="list-group-item list-group-item-action {% if conv.id == IdConvActive %} active {% endif %}list-group-item-light rounded-0 conv" data-id="{{ conv.id }}">
                                 <div class="media"><img src="{{ asset('assets/images/profil2.jpg') }}" alt="user" width="50" height="50" class="rounded-circle">
                                     <div class="media-body ml-4">
                                         <div class="d-flex align-items-center justify-content-between mb-1">
-                                            {% for part in conv.participants %}
-                                                {% if part.user.id != userId %}
-                                                    <h6 class="mb-0">{{ part.user.firstname }} {{ part.user.lastname }}</h6><small class="small font-weight-bold"></small>
+                                            {% for convers in conversations %}
+                                            {% if convers.conversationId == conv.id  %}
+                                                {% if convers.nom == null  %}
+                                                    {% for part in conv.participants %}
+                                                        {% if part.user.id != userId  %}
+                                                            <h6 class="mb-0">{{ part.user.firstname }} {{ part.user.lastname }}</h6><small class="small font-weight-bold"></small>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <h6 class="mb-0"> {{ convers.nom }}</h6><small class="small font-weight-bold"></small>
                                                 {% endif %}
-                                            {% endfor %}
+                                            {% endif %}
+                                {% endfor %}
                                         </div>
                                         <p class="font-italic mb-0 text-small">  {{ conv.lastMessage.content }} </p>
                                     </div>
@@ -86,45 +115,52 @@
             <!-- Chat Box-->
 
             <div class="col-7 px-0 " >
-                {% for conv in conversationArray %}
-                <div class="px-4 py-5 chat-box bg-white msg-conv" data-id="{{ conv.id }}" {% if conv.id != IdConvActive %}hidden {% endif %} >
-                    {% for msg in conv.messages %}
-                            {% if msg.user.id != userId %}
-                                <!-- Sender Message-->
-                                <div class="media w-50 mb-3"><img src="{{ asset('assets/images/profil2.jpg') }}" alt="user" width="50" class="rounded-circle">
-                                    <div class="media-body ml-3">
-                                        <div class="bg-light rounded py-2 px-3 mb-2">
-                                            <p class="text-small mb-0 text-muted">{{ msg.content }}</p>
-                                        </div>
-                                        <p class="small text-muted">{{ msg.createdAt|date("F jS \\a\\t g:ia") }}</p>
-                                    </div>
-                                </div>
-                            {% else %}
-                                <!-- Receiver Message-->
-                                <div class="media w-50 ml-auto mb-3">
-                                    <div class="media-body">
-                                        <div class="bg-primary rounded py-2 px-3 mb-2">
-                                            <p class="text-small mb-0 text-white">{{ msg.content }}</p>
-                                        </div>
-                                        <p class="small text-muted">{{ msg.createdAt|date("F jS \\a\\t g:ia") }}</p>
-                                    </div>
-                                </div>
-                            {% endif %}
-                    {% endfor %}
-                </div>
-                {% endfor %}
-                <div id="mercure-content-receiver"></div>
-                <form class="bg-light" id="mercure-message-form" action="{{ path('sendMessage') }}" method="post">
-                    <div class="input-group">
-                        <input id="mercure-message-input" name="message" type="text" placeholder="Type a message" aria-describedby="mercure-message-btn" class="form-control rounded-0 border-0 py-4 bg-light">
-                        <div class="input-group-append">
-                            <button id="mercure-message-btn" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane" value="Send"></i></button>
+                <div class="bg-white">
+                    <div class="bg-gray px-4 py-2 bg-light row">
+                        <div class="col-md-10">
+                            <p class="h5 mb-0 py-1" style="margin-top:5px;text-align: center">photo + name</p>
                         </div>
-                        <input id="id-conv-input" name="id-conv" type="hidden" value="2">
                     </div>
-                </form>
 
+                    {% for conv in conversationArray %}
+                    <div class="px-4 py-5 chat-box bg-white msg-conv" data-id="{{ conv.id }}" {% if conv.id != IdConvActive %}hidden {% endif %} >
+                        {% for msg in conv.messages %}
+                                {% if msg.user.id != userId %}
+                                    <!-- Sender Message-->
+                                    <div class="media w-50 mb-3"><img src="{{ asset('assets/images/profil2.jpg') }}" alt="user" width="50" class="rounded-circle">
+                                        <div class="media-body ml-3">
+                                            <div class="bg-light rounded py-2 px-3 mb-2">
+                                                <p class="text-small mb-0 text-muted">{{ msg.content }}</p>
+                                            </div>
+                                            <p class="small text-muted">{{ msg.createdAt|date("F jS \\a\\t g:ia") }}</p>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <!-- Receiver Message-->
+                                    <div class="media w-50 ml-auto mb-3">
+                                        <div class="media-body">
+                                            <div class="bg-primary rounded py-2 px-3 mb-2">
+                                                <p class="text-small mb-0 text-white">{{ msg.content }}</p>
+                                            </div>
+                                            <p class="small text-muted">{{ msg.createdAt|date("F jS \\a\\t g:ia") }}</p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                        {% endfor %}
+                    </div>
 
+                {% endfor %}
+                    <div id="mercure-content-receiver"></div>
+                    <form class="bg-light" id="mercure-message-form" action="{{ path('sendMessage') }}" method="post">
+                        <div class="input-group">
+                            <input id="mercure-message-input" name="message" type="text" placeholder="Type a message" aria-describedby="mercure-message-btn" class="form-control rounded-0 border-0 py-4 bg-light">
+                            <div class="input-group-append">
+                                <button id="mercure-message-btn" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane" value="Send"></i></button>
+                            </div>
+                            <input id="id-conv-input" name="id-conv" type="hidden" value="2">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -220,5 +256,37 @@
         addMessage(data.userId,data.message,data.convId);
     };
 </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
 
+        var data = JSON.parse('{{ data|json_encode|e('js') }}');
+
+        $(".js-example-theme-single").select2({
+            theme: "classic", data : data
+        });
+
+        $(".js-example-theme-multiple").select2({
+            theme: "classic",data : data
+        });
+    </script>
+
+    <script>
+        function openLink(evt, animName) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("convers");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(animName).style.display = "block";
+            tablinks = document.getElementsByClassName("tablink");
+            /*for (i = 0; i < x.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace("", "");
+            }*/
+            document.getElementById(animName).style.display = "block";
+
+        }
+    </script>
 {% endblock %}
