@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Conversation;
 use App\Entity\Message;
 use App\Entity\Participant;
+use App\Entity\Groupe;
 use App\Entity\User;
 use App\Repository\ConversationRepository;
 use App\Repository\UserRepository;
@@ -35,7 +36,7 @@ class MessageController extends AbstractController
     /**
      * @Route("/message", name="message")
      */
-    public function index(CookieGenerator $cookieGenerator,Request $request): Response
+    public function index(CookieGenerator $cookieGenerator,Request $request,UserRepository $userRepository,EntityManagerInterface $em): Response
     {
         $conversationArray = [];
         if (!($this->getUser())) {
@@ -48,6 +49,7 @@ class MessageController extends AbstractController
         $idConvActive=0;
         foreach ($conversations as $conversation)
         {
+
             array_push($conversationArray,$this->getDoctrine()->getRepository(Conversation::class)->find($conversation['conversationId']));
             if($flag)
             {
@@ -57,38 +59,30 @@ class MessageController extends AbstractController
         }
         //dd( $conversationArray[0]);
         $userId=$this->getUser()->getId();
+        //Pour le select
+        $users = $userRepository->findBy([],['createdAt' => 'DESC']);
+
+        $taille = count($users) ;
+        //Je crée un tableau pour stocker les utilisateurs que l'utilisateur courant a rajouté à l'agenda
+        $data = array();
+        $i = 0 ;
+        while ($i < $taille)
+        {
+            $data[$i] = $users[$i]->getUsername();
+
+            $i++;
+        }
 
         $response = $this->render('message/index.html.twig', [
             'IdConvActive' => $idConvActive,
             'controller_name' => 'MessageController',
+            'conversations' => $conversations,
             'conversationArray' =>$conversationArray,
             'userId' => $userId,
+            'data'    => $data,
         ]);
         $response->headers->setCookie($cookieGenerator->generate());
-        //ajouter une conversation
-        if ($request->isMethod('POST')){
-            $conversation1 = new Conversation();
-            $message1=new Message();
-            $participant1 = new Participant();
-            $participant2 = new Participant();
-            $username = $request->get('username');
-            $content=$request->get('msg');
-            $user=$this->getDoctrine()->getRepository(User::class)->findOneByUsername($username);
-            $participant1->setConversation($conversation1);
-            $participant1->setUser($user);
-            $participant2->setConversation($conversation1);
-            $participant2->setUser($this->getUser());
-            $message1->setContent($content);
-            $message1->setUser($this->getUser());
-            $message1->setConversation($conversation1);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($conversation1);
-            $entityManager->persist($participant1);
-            $entityManager->persist($message1);
-            $entityManager->persist($participant2);
-            $entityManager->flush();
-            return $this->redirectToRoute('message');
-        }
+
 
         return $response;
     }
@@ -132,6 +126,97 @@ class MessageController extends AbstractController
         $bus->dispatch($update);
 
         return $this->redirectToRoute('message');
+    }
+
+    /**
+     * @Route("/message/nvconv", name="converpers",methods = {"GET","POST"})
+     * @param Request $request
+     * @return RedirectResponse|Response
+     * @author khadija
+     */
+    public function converpers(Request $request)
+    {
+        if (!($this->getUser())) {
+            $this->addFlash('error', 'You must logged in');
+
+            return $this->redirectToRoute('app_login');
+        }
+        //ajouter une conversation
+        if ($request->isMethod('POST')) {
+            //dd($request);
+             $conversation1 = new Conversation();
+             $message1=new Message();
+             $participant1 = new Participant();
+             $participant2 = new Participant();
+             $username = $request->get('username');
+             $content=$request->get('msg');
+             $user=$this->getDoctrine()->getRepository(User::class)->findOneByUsername($username);
+             $participant1->setConversation($conversation1);
+             $participant1->setUser($user);
+             $participant2->setConversation($conversation1);
+             $participant2->setUser($this->getUser());
+             $message1->setContent($content);
+             $message1->setUser($this->getUser());
+             $message1->setConversation($conversation1);
+             $entityManager = $this->getDoctrine()->getManager();
+             $entityManager->persist($conversation1);
+             $entityManager->persist($participant1);
+             $entityManager->persist($message1);
+             $entityManager->persist($participant2);
+             $entityManager->flush();
+             return $this->redirectToRoute('message');
+        }
+    }
+        /**
+         * @Route("/message/nvconvG", name="convergroupe",methods = {"GET","POST"})
+         * @param Request $request
+         * @return RedirectResponse|Response
+         * @author khadija
+         */
+        public function convergroupe(Request $request)
+    {
+        if (!($this->getUser())) {
+            $this->addFlash('error', 'You must logged in');
+
+            return $this->redirectToRoute('app_login');
+        }
+        //ajouter une conversation groupe
+        if ($request->isMethod('POST')){
+            $conversation = new Conversation();
+            $message=new Message();
+            $groupe=new Groupe();
+            $participant = new Participant();
+            $content=$request->get('msg');
+            $nom=$request->get('nomgrp');
+            $participant->setConversation($conversation);
+            $participant->setUser($this->getUser());
+            $message->setContent($content);
+            $message->setUser($this->getUser());
+            $message->setConversation($conversation);
+            $groupe->setNom($nom);
+            $groupe->setUser($this->getUser());
+            $groupe->setConversation($conversation);
+            $entityManager = $this->getDoctrine()->getManager();
+            foreach ($request->get('username') as $username)
+            {
+                $participant1 = new Participant();
+                $user=$this->getDoctrine()->getRepository(User::class)->findOneByUsername($username);
+                $participant1->setConversation($conversation);
+                $participant1->setUser($user);
+                //dump($user);
+                $entityManager->persist($participant1);
+            }
+            $entityManager->persist($conversation);
+            $entityManager->persist($participant);
+            $entityManager->persist($message);
+            $entityManager->persist($groupe);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('message');
+
+
+        }
+
     }
 
 
