@@ -9,11 +9,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="users")
  *  @ORM\HasLifecycleCallbacks
+ * @Vich\Uploadable
  */
 class User implements UserInterface
 {
@@ -53,6 +56,21 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+    
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * @Vich\UploadableField(mapping="profil_image",fileNameProperty="image")
+     * 
+     * @var File
+     */
+    private $imageFile;
+     /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please upload your image")
+     * 
+     * @var string
+     */
+    private $image;
 
     /**
      * @ORM\OneToMany(targetEntity="Participant",mappedBy="user")
@@ -75,13 +93,19 @@ class User implements UserInterface
      */
     private $agendas;
 
-
+    /**
+     * @ORM\Column(type="datetime")
+     * 
+     * @var \DateTime
+     */
+    private $updatedAt;
 
 
     public function __construct()
     {
         $this->participants = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->updatedAt = new \Datetime();
     }
 
     public function getId(): ?int
@@ -177,6 +201,38 @@ class User implements UserInterface
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+    /**
+     * @param mixed $imageFile
+     * @throws \Exception
+     */
+    public function setImageFile($imageFile): void
+    {
+        $this->imageFile = $imageFile;
+
+        if($imageFile){
+            //It is required that at least one field changes if you are using doctrine
+            //otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+        
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

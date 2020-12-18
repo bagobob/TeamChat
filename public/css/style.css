@@ -315,4 +315,90 @@ p.font-italic.mb-0.text-small{
     border-radius: 10px;
     width: 500px !important;
 }
-
+/*serviiiice*/
+:root{
+    --color1: #0fb513;
+    --color2: #d41271;
+    --color3: #ff4a26;
+    --color4: #1e3799;
+}
+.serviceBox{
+    color: #555;
+    font-family: 'Sniglet', cursive;
+    text-align:center;
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+}
+.serviceBox .service-icon{
+    color: var(--color1);
+    background: #fff;
+    font-size: 40px;
+    line-height: 90px;
+    height: 110px;
+    width: 110px;
+    margin: 0 auto 30px;
+    border: 10px solid var(--color1);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    position: relative;
+    transition: all 0.3s;
+}
+.serviceBox .service-icon i{
+    transform: rotateY(0deg);
+    transition: all 0.3s ease 0s;
+}
+.serviceBox:hover .service-icon i{ transform: rotateY(360deg); }
+.serviceBox .service-icon:before{
+    content: "";
+    background: linear-gradient(to right , var(--color1) 49%, transparent 50%);
+    width: 122%;
+    height: 150%;
+    border-radius: 50%;
+    transform: translateX(-50%) rotateY(180deg);
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    z-index: -1;
+    transition: all 0.3s;
+}
+.serviceBox:hover .service-icon:before{ transform: translateX(-50%) rotateY(0); }
+.serviceBox .title{
+    color: var(--color1);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+}
+.serviceBox .description{
+    font-size: 15px;
+    line-height: 25px;
+}
+.serviceBox.magenta .service-icon{
+    color: var(--color2);
+    border-color: var(--color2);
+}
+.serviceBox.magenta .service-icon:before{
+    background: linear-gradient(to right,var(--color2) 49%, transparent 50%);
+}
+.serviceBox.magenta .title{ color: var(--color2); }
+.serviceBox.orange .service-icon{
+    color: var(--color3);
+    border-color: var(--color3);
+}
+.serviceBox.orange .service-icon:before{
+    background: linear-gradient(to right,var(--color3) 49%, transparent 50%);
+}
+.serviceBox.orange .title{ color: var(--color3); }
+.serviceBox.blue .service-icon{
+    color: var(--color4);
+    border-color: var(--color4);
+}
+.serviceBox.blue .service-icon:before{
+    background: linear-gradient(to right,var(--color4) 49%, transparent 50%);
+}
+.serviceBox.blue .title{ color: var(--color4); }
+@media only screen and (max-width:990px){
+    .serviceBox{ margin: 0 0 30px; }
+}

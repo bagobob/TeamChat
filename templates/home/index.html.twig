@@ -3,9 +3,12 @@
 {% block title 'Home' %}
 
 {% block body %}
+    <br>
     <!--h1 class="text-muted text-center"> Bienvenue sur la page d'acceuil  {{   app.user.userName }} </h1-->
     <div class="col-xl-12 col-lg-24">
-              <div class="card card-stats mb-4 mb-xl-0" style="background-color: #ffb3b3 !important;">
+            <h1 class="text-muted text-center" style="color:#254d74 !important;"> Bienvenue à TeamChat {{   app.user.userName }}</h1>
+            <br>
+              <!--div class="card card-stats mb-4 mb-xl-0" style="background-color: #ffb3b3 !important;">
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
@@ -13,7 +16,95 @@
                     </div>
                   </div>
                 </div>
-              </div> 
-              <img src="{{ asset('assets/images/chat5.png') }}" style="margin-left:200px;" width="700" height="500" id="img1" alt="test" >
+              </div--> 
+              <br>
+          <div class="row">
+            <div class="col-xl-6 col-lg-12">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Utilisateurs</h5>
+                      <span class="h2 font-weight-bold mb-0" style="font-size:30px;">{{ count_users }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <!--i class="fas fa-chart-bar"></i-->
+                        <img src="{{ asset('assets/images/usernbre.png') }}">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-nowrap">Nombre total des utilisateurs</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-12">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Favoris</h5>
+                      <span class="h2 font-weight-bold mb-0" style="font-size:30px;">{{ count_fav }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                        <img src="{{ asset('assets/images/fav1.png') }}">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-nowrap">Nombre total des favoris</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xl-6 col-lg-12">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Messages privés</h5>
+                      <span class="h2 font-weight-bold mb-0" style="font-size:30px;">{{ count_conv }}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                        <!--i class="fas fa-chart-bar"></i-->
+                        <img src="{{ asset('assets/images/msg2.png') }}">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-nowrap">Nombre total des messages privés</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-12">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Messages groupes</h5>
+                      <span class="h2 font-weight-bold mb-0" style="font-size:30px;">6</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <img src="{{ asset('assets/images/group.png') }}">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-nowrap">Nombre total des messages groupes</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- services -->
             </div>
 {% endblock %}
