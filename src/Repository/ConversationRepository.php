@@ -48,22 +48,25 @@ class ConversationRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+    'Groupe','gr',Join::WITH, $qb->expr()->eq('gr.user',':user')
     */
     public function findConversationsByUser(int $userId)
     {
         $qb = $this->createQueryBuilder('c');
         $qb->
-            select('otherUser.username','c.id as conversationId', 'lm.content', 'lm.createdAt')
+            select('otherUser.username','c.id as conversationId', 'lm.content', 'lm.createdAt','gr.nom')
             ->innerJoin('c.participants','p',Join::WITH, $qb->expr()->neq('p.user',':user'))
             ->innerJoin('c.participants','me',Join::WITH, $qb->expr()->eq('me.user',':user'))
             ->leftJoin('c.lastMessage','lm')
+            ->leftJoin('c.groupes','gr',Join::WITH, $qb->expr()->eq('gr.conversation','c.id'))
             ->innerJoin('me.user','meUser')
             ->innerJoin('p.user','otherUser')
             ->where('meUser.id = :user')
             ->setParameter('user', $userId)
             ->orderBy('lm.createdAt','DESC')
+            ->groupBy('c.id')
         ;
-        //dd($qb->getQuery());
+        //dd($qb->getQuery()->getResult());
         return $qb->getQuery()->getResult();
     }
 
