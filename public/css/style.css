@@ -431,3 +431,70 @@ w3-button:hover{
     border-radius: 10px;
     width: 500px !important;
 }
+/* Search box */
+.box{
+
+	width: 300px;
+
+	height: 30px;
+
+	background-color: #F0F0F0;
+
+	border-radius: 30px;
+
+	display: flex;
+
+	align-items: center;
+
+	padding: 20px;
+
+}
+.box > i {
+
+	font-size: 20px;
+
+	color: #ffcccc !important;
+
+}
+.box > input{
+
+	flex: 1;
+
+    background-color: #F0F0F0;
+
+	height: 40px;
+
+	border: none;
+
+	outline: none;
+
+	font-size: 18px;
+
+	padding-left: 10px;
+
+
+}
+.nis,.box{
+    display: inline;
+}
+.bt {
+    border: none;
+    color: white;
+    padding: 5px 6px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 10px;
+    background-color: #f8f9fa;
+    margin-left: -10;
+}
+input[type="file"]{
+    display: none;
+}
+.filic{
+    color:#254d74 !important;
+    width:50px;
+    margin-left:10px;
+    margin-top:10px;
+    width: 15px !important;
+    height: 15px !important;
+}
