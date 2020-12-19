@@ -402,3 +402,32 @@ p.font-italic.mb-0.text-small{
 @media only screen and (max-width:990px){
     .serviceBox{ margin: 0 0 30px; }
 }
+w3-button:hover{
+    background-color:inherit;
+}
+.w3-teal, .w3-hover-teal:hover{
+    color: #009688!important;
+    background-color: #eee!important;
+}
+/* .w3-button:hover:not(.active){
+    background-color: white;
+} */
+
+.bt{
+    border: none;
+    color: white;
+    padding: 5px 6px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 10px;
+}
+#usr{
+    border-radius: 5px;
+    height: 40px !important;
+    border: solid 1px;
+}
+.w3-modal-content{
+    background-color:#FFFFFF ;
+    border-radius: 10px;
+    width: 500px !important;
+}

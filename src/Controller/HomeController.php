@@ -64,11 +64,24 @@ class HomeController extends AbstractController
         $convCount = count($conversations);
         //dump($conversations);
         $countagenda = sizeof($data);
+        $countprive = 0;
+        $countgroupe = 0;
+        foreach($conversations as $conv){
+            dump($conv);
+            if($conv['nom'] == null){
+                $countprive++;
+            }
+            else{
+                $countgroupe++;
+            }
+        }
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'count_users' => $countUser,
             'count_fav' =>  $countagenda,
-            'count_conv' =>   $convCount,
+            'count_conv' => $convCount,
+            'countprive' => $countprive,
+            'countgroupe' => $countgroupe,
         ]);
     }
 
