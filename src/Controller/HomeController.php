@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Agenda;
 use App\Entity\User;
+use App\Entity\Conversation;
+use App\Entity\Participant;
 use App\Repository\AgendaRepository;
+use App\Repository\ConversationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,25 +16,72 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use App\Form\UserFormType;
 
 class HomeController extends AbstractController
 {
     
+    /**
+     * @var ConversationRepository
+     */
+    private $conversationRepository;
+    public function __construct(EntityManagerInterface $entityManager
+        ,ConversationRepository $conversationRepository)
+    {
+        $this->entityManager = $entityManager;
+        $this->conversationRepository = $conversationRepository;
+    }
 
     /**
      * @Route("/", name="app_home")
      */
-    public function index()
+    public function index(UserRepository $userRepository,AgendaRepository $agendaRepository,ConversationRepository $conversationRepository)
     {
         if (!($this->getUser())) {
             $this->addFlash('error', 'You must logged in');
 
             return $this->redirectToRoute('app_login');
         }
+        $countUser = $userRepository->count([],['createdAt' => 'DESC']);
+        //On recupère l'id de l'utilisateur connecté
+        $userId =  intval($this->get('security.token_storage')->getToken()->getUser()->getId());
 
+        $users = $agendaRepository->findBy([],['createdAt' => 'DESC']);
+              
+        $taille = count($users) ;
+        //Je crée un tableau pour stocker les utilisateurs que l'utilisateur courant a rajouté à l'agenda
+        $data = array();
+         $i = 0 ;
+        while ($i < $taille)
+        {
+            if ( $users[$i]->getUser()->getId() == $userId)
+            {
+                $data[] = $users[$i];
+            }
+            $i++;
+        }
+        $conversations = $this->conversationRepository->findConversationsByUser($this->getUser()->getId());
+        $convCount = count($conversations);
+        //dump($conversations);
+        $countagenda = sizeof($data);
+        $countprive = 0;
+        $countgroupe = 0;
+        foreach($conversations as $conv){
+            dump($conv);
+            if($conv['nom'] == null){
+                $countprive++;
+            }
+            else{
+                $countgroupe++;
+            }
+        }
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'count_users' => $countUser,
+            'count_fav' =>  $countagenda,
+            'count_conv' => $convCount,
+            'countprive' => $countprive,
+            'countgroupe' => $countgroupe,
         ]);
     }
 
@@ -118,8 +168,8 @@ class HomeController extends AbstractController
         $userId =  intval($this->get('security.token_storage')->getToken()->getUser()->getId());
 
         $users = $agendaRepository->findBy([],['createdAt' => 'DESC']);
-
-
+        $countusers = $agendaRepository->count([],['createdAt' => 'DESC']);
+        
         $taille = count($users) ;
         //Je crée un tableau pour stocker les utilisateurs que l'utilisateur courant a rajouté à l'agenda
         $data = array();
@@ -132,7 +182,7 @@ class HomeController extends AbstractController
             }
             $i++;
         }
-
+        dump(sizeof($data));
 
         return $this->render('home/agenda.html.twig', [
             'controller_name' => 'HomeController',
@@ -250,5 +300,11 @@ public function update_pseudo(Request $request)
         return $this->redirectToRoute('app_agenda') ;
     }
 
-
+    public function picture(){
+        $upload = new User();
+        $form = $this->createForm(UserFormType::class,$upload);
+        return $this->render('home/profile.html.twig',array(
+            'form' => $form->createView(),
+        ));
+    }
 }

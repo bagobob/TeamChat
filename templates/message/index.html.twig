@@ -118,7 +118,21 @@
                 <div class="bg-white">
                     <div class="bg-gray px-4 py-2 bg-light row">
                         <div class="col-md-10">
-                            <p class="h5 mb-0 py-1" style="margin-top:5px;text-align: center">photo + name</p>
+                            <!--p class="h5 mb-0 py-1" style="margin-top:5px;text-align: center">photo + name</p-->
+                            <!-- Beginning of User Profil Picture-->
+                                <div class="col-lg-4 order-lg-1 text-center nis">
+                                        <!--div class="icon icon-shape bg-danger text-white rounded-circle shadow" style="width:60px !important;height:80px !important;display:inline;"-->
+                                        <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1" style="margin-left:-15px !important" width="40px" height="40" class="rounded-circle">
+                                        <!--/div-->
+                                        <b style="margin-left:10px;display:inline;">  Nisrine</b> 
+                                        <div class="box" style="margin-left:70px !important">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                            <input type="text" name="search">
+                                        </div>
+                                        <label style="margin-left:50px;">En ligne</label>
+                                </div>
+                               
+                             <!-- End of User Profil Picture-->
                         </div>
                     </div>
 
@@ -153,6 +167,10 @@
                     <div id="mercure-content-receiver"></div>
                     <form class="bg-light" id="mercure-message-form" action="{{ path('sendMessage') }}" method="post">
                         <div class="input-group">
+                            <input type="file" id="file">
+                            <label for="file">
+                                <i class="fas fa-file filic"></i>
+                            </label>
                             <input id="mercure-message-input" name="message" type="text" placeholder="Type a message" aria-describedby="mercure-message-btn" class="form-control rounded-0 border-0 py-4 bg-light">
                             <div class="input-group-append">
                                 <button id="mercure-message-btn" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane" value="Send"></i></button>
