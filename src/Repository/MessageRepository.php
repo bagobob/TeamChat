@@ -53,10 +53,10 @@ class MessageRepository extends ServiceEntityRepository
     {
         $query = $this
             ->createQueryBuilder('m')
-            ->andWhere('m.conversation=:conversation')
+            ->andWhere('m.conversation = :conversation')
             ->andWhere('m.content LIKE :content')
             ->setParameter('conversation',$conversation)
-            ->setParameter('content', $content)
+            ->setParameter('content', "%{$content}%")
             ;
         return $query->getQuery()->getResult();
     }
