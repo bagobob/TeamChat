@@ -3,9 +3,6 @@ vich_uploader:
 
     mappings:
         profil_image:
-            uri_prefix: '%uploads_path%'
-            upload_destination: '%kernel.project_dir%/public/%uploads_path%'
-
-            inject_on_load: false;
-            delete_on_update: false;
-            delete_on_remove: false;
+            uri_prefix: /images/assets/profils
+            upload_destination: '%kernel.project_dir%/public/assets/profils'
+            namer:  Vich\UploaderBundle\Naming\SmartUniqueNamer
