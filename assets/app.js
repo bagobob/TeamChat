@@ -14,5 +14,5 @@ import 'bootstrap';
 
 $('.custom-file-input').on('change', function(e) {
     var inputFile = e.currentTarget;
-    $(inputFile).parent().find('.custom-file-label').html(inputFile.files[0].name);
+    $(inputFile).parent().find('.custom-file-input').html(inputFile.files[0].name);
 });

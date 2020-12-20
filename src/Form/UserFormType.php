@@ -24,7 +24,7 @@ class UserFormType extends AbstractType
             ->add('imageFile',VichImageType::class,[
                 'required' => false,
                 'allow_delete' => false,
-                'label' => false,
+                'label' => 'choisir',
                 'download_uri' => '',
                 'download_label' => false,
                 'imagine_pattern' => 'squared_thumbnail_small',
