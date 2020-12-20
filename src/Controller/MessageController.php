@@ -231,8 +231,8 @@ class MessageController extends AbstractController
      */
     public function searchMessage(Request $request)
     {
-        $messages = $this->entityManager->getRepository(Message::class)->findAll();
-
+        
+        $messages = '';
         $search = new Search();
         $form = $this->createForm(SearchFormType::class,$search);
         $mot = $request->query->get('string');
