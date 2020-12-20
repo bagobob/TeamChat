@@ -23,6 +23,7 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $manager
      * @param User $user
      * @return RedirectResponse|Response
+     * @author Vanelle
      */
     public function show_profile($id,UserRepository $repository, Request $request,EntityManagerInterface $manager,User $user)
     {
@@ -55,6 +56,7 @@ class UserController extends AbstractController
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return RedirectResponse|Response
+     * @author BAKKALI & Vanelle
      */
     public function update_pass(Request $request,UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -104,6 +106,7 @@ class UserController extends AbstractController
      * @Route("/profil/editprofile", name="update_pseudo",methods = {"GET","POST"})
      * @param Request $request
      * @return RedirectResponse|Response
+     * @author BAKKALI & Vanelle
      */
     public function update_pseudo(Request $request)
     {

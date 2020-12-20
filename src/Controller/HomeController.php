@@ -38,6 +38,7 @@ class HomeController extends AbstractController
      * @param AgendaRepository $agendaRepository
      * @param ConversationRepository $conversationRepository
      * @return RedirectResponse|Response
+     * @author Moussaoui Nisrine & BAKKALI Khadija
      */
     public function index(UserRepository $userRepository,AgendaRepository $agendaRepository,ConversationRepository $conversationRepository)
     {
@@ -98,6 +99,7 @@ class HomeController extends AbstractController
      * @param AgendaRepository $agenda
      * @return Response
      * @throws \Exception
+     * @author TIBAGO Boris
      */
     public function show_annuary(UserRepository $userRepository,Request $request,EntityManagerInterface $em,AgendaRepository $agenda) :Response
     {
@@ -171,6 +173,7 @@ class HomeController extends AbstractController
      * @Route("/agenda", name="app_agenda", methods="GET")
      * @param AgendaRepository $agendaRepository
      * @return Response
+     * @author Boris Tibago
      */
     public function show_agenda(AgendaRepository $agendaRepository) :Response
     {
@@ -212,6 +215,7 @@ class HomeController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
+     * @author boris
      */
     public function deleteEntryAgenda(Agenda $user, Request $request,EntityManagerInterface $em) :Response
     {
@@ -238,7 +242,7 @@ class HomeController extends AbstractController
      * @return RedirectResponse|Response
      * @author khadija
      */
-    public function update_pass(Request $request)
+    public function update_statut(Request $request)
     {
         if (!($this->getUser())) {
             $this->addFlash('error', 'You must logged in');

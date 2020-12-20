@@ -47,6 +47,7 @@ class ConversationController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      * @throws \Exception
+     * @author BAKKALI Khadija
      */
 
     public function index(Request $request)

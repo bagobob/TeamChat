@@ -17,6 +17,7 @@ class AgendaController extends AbstractController
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
+     * @author Tibago Boris
      */
     public function index(UserRepository $userRepository,Request $request,EntityManagerInterface $em): Response
     {
@@ -32,7 +33,6 @@ class AgendaController extends AbstractController
 
             $i++;
         }
-
         //dd($data);
         return $this->render('agenda/index.html.twig', [
             'controller_name' => 'AgendaController',

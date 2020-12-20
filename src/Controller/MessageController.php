@@ -39,6 +39,7 @@ class MessageController extends AbstractController
     }
     /**
      * @Route("/message", name="message")
+     * @author BAKKALI
      */
     public function index(CookieGenerator $cookieGenerator,Request $request,UserRepository $userRepository,EntityManagerInterface $em): Response
     {
@@ -105,6 +106,7 @@ class MessageController extends AbstractController
 
     /**
      * @Route("/send-message", name="sendMessage", methods={"POST"})
+     * @author Bakkali
      */
     public function __invoke(MessageBusInterface $bus, Request $request): RedirectResponse
     {
@@ -137,7 +139,7 @@ class MessageController extends AbstractController
      * @Route("/message/nvconv", name="converpers",methods = {"GET","POST"})
      * @param Request $request
      * @return RedirectResponse|Response
-     * @author khadija-nisrine
+     * @author khadija & nisrine
      */
     public function converpers(Request $request)
     {
@@ -228,6 +230,7 @@ class MessageController extends AbstractController
      * @Route("/chat_search", name="app_chat_search")
      * @param Request $request
      * @return Response
+     * @author boris
      */
     public function searchMessage(Request $request)
     {

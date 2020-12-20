@@ -15,6 +15,7 @@ class LoginController extends AbstractController
      * @Route("/login", name="app_login")
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
+     * @author Boris & Vanelle
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -79,7 +80,7 @@ class LoginController extends AbstractController
 
         //Begining of Authentication
          if ($this->getUser()) {
-             $this->addFlash('error', 'Already logged in');
+             $this->addFlash('error', 'Vous êtes déjà connecté');
              return $this->redirectToRoute('app_home');
          }
 
@@ -93,6 +94,7 @@ class LoginController extends AbstractController
 
     /**
      * @Route("/logout", name="app_logout")
+     *
      */
     public function logout()
     {
