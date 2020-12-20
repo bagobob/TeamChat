@@ -4,9 +4,19 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="row">
+    <div class="col-sm-3">
         <h3>Rechercher</h3>
         {{ form(form) }}
+    </div>
+    <div class="col-sm-9">
+
+        {% for msg in messages %}
+
+        {{ msg.content}}
+
+        {% endfor %}
+    </div>
     </div>
 
 {% endblock %}

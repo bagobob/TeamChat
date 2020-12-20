@@ -226,6 +226,8 @@ class MessageController extends AbstractController
 
     /**
      * @Route("/chat_search", name="app_chat_search")
+     * @param Request $request
+     * @return Response
      */
     public function searchMessage(Request $request)
     {
@@ -233,11 +235,11 @@ class MessageController extends AbstractController
 
         $search = new Search();
         $form = $this->createForm(SearchFormType::class,$search);
-
+        $mot = $request->query->get('string');
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            $messages = $this->entityManager->getRepository(Message::class)->findWithSearch($search);
+            $messages = $this->entityManager->getRepository(Message::class)->findWithSearch(2,$mot);
         }
         return $this->render('user/search.html.twig',[
             'form' => $form->createView(),
