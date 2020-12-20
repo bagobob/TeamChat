@@ -9,6 +9,10 @@
 import './styles/app.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-var  $ = require('jquery');
+import $ from 'jquery';
+import 'bootstrap';
 
-console.log('Hello Webpack Encore! Edit me in assets/app.js');
+$('.custom-file-input').on('change', function(e) {
+    var inputFile = e.currentTarget;
+    $(inputFile).parent().find('.custom-file-input').html(inputFile.files[0].name);
+});

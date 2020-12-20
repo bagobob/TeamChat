@@ -7,8 +7,10 @@ use App\Entity\Message;
 use App\Entity\Participant;
 use App\Entity\Groupe;
 use App\Entity\User;
+use App\Form\SearchFormType;
 use App\Repository\ConversationRepository;
 use App\Repository\UserRepository;
+use App\Search;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,6 +28,8 @@ class MessageController extends AbstractController
      * @var ConversationRepository
      */
     private $conversationRepository;
+    private $entityManager;
+    private $userRepository;
     public function __construct(UserRepository $userRepository,EntityManagerInterface $entityManager
         ,ConversationRepository $conversationRepository)
     {
@@ -47,6 +51,7 @@ class MessageController extends AbstractController
         $conversations = $this->conversationRepository->findConversationsByUser($this->getUser()->getId());
         $flag=true;
         $idConvActive=0;
+        dump($conversations);
         foreach ($conversations as $conversation)
         {
 
@@ -61,7 +66,7 @@ class MessageController extends AbstractController
         $userId=$this->getUser()->getId();
         //Pour le select
         $users = $userRepository->findBy([],['createdAt' => 'DESC']);
-
+        dump($conversationArray);
         $taille = count($users) ;
         //Je crée un tableau pour stocker les utilisateurs que l'utilisateur courant a rajouté à l'agenda
         $data = array();
@@ -217,6 +222,27 @@ class MessageController extends AbstractController
 
         }
 
+    }
+
+    /**
+     * @Route("/chat_search", name="app_chat_search")
+     */
+    public function searchMessage(Request $request)
+    {
+        $messages = $this->entityManager->getRepository(Message::class)->findAll();
+
+        $search = new Search();
+        $form = $this->createForm(SearchFormType::class,$search);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $messages = $this->entityManager->getRepository(Message::class)->findWithSearch($search);
+        }
+        return $this->render('user/search.html.twig',[
+            'form' => $form->createView(),
+            'messages' => $messages
+        ]);
     }
 
 

@@ -53,24 +53,20 @@
                 <td> {{ user.userName }} </td>
                 <td> {{ user.status }} </td>
                 <td> {{ user.createdAt|date('Y-m-d H:i:s') }} </td>
+                {% if(user.id == app.user.id) %}
+                <td></td>
+                {% else %}
                 <td>
                     <form action="{{ path('app_annuary') }}" method="POST">
                         <input type="hidden" value="{{ user.id }}" name="idUser">
                         <button type="submit"> <i class="fas fa-heart fa-lg" style="color: red"></i> </button>
                     </form>
                 </td>
+                    {% endif %}
             </tr>
         {% endfor %}
         </tbody>
         <tfoot>
-        <tr>
-            <th>Prenom</th>
-            <th>Nom</th>
-            <th>Pseudo</th>
-            <th>Statut</th>
-            <th>Date Ajout</th>
-            <th>Ajouter Favori</th>
-        </tr>
         </tfoot>
     </table>
 </main>

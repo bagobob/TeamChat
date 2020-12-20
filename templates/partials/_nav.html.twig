@@ -34,7 +34,10 @@
                         </a>
                     </li-->
                     <li class="nav-item ">
-                        <a class="nav-link" href="{{ path('app_profil') }}"><i class="fas fa-user fa-lg fn" ></i>  {{   app.user.userName }}</a>
+                        <a class="nav-link" href="{{ path('app_chat_search') }}"><i class="fas fa-user fa-lg fn" ></i>Chat_search</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ path('app_profil',{id: app.user.id}) }}"><i class="fas fa-user fa-lg fn" ></i>  {{   app.user.userName }}</a>
                     </li>
                     <li>
                         <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt fa-lg fn"></i> Deconnexion</a>
