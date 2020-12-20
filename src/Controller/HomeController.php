@@ -34,11 +34,15 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/", name="app_home")
+     * @param UserRepository $userRepository
+     * @param AgendaRepository $agendaRepository
+     * @param ConversationRepository $conversationRepository
+     * @return RedirectResponse|Response
      */
     public function index(UserRepository $userRepository,AgendaRepository $agendaRepository,ConversationRepository $conversationRepository)
     {
         if (!($this->getUser())) {
-            $this->addFlash('error', 'You must logged in');
+            $this->addFlash('error', 'Vous devez être connecté');
 
             return $this->redirectToRoute('app_login');
         }
@@ -85,37 +89,33 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/profil", name="app_profil")
-     */
-    public function show_profile()
-    {
-        if (!($this->getUser())) {
-            $this->addFlash('error', 'You must logged in');
-
-            return $this->redirectToRoute('app_login');
-        }
-
-        return $this->render('home/profile.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
-    }
 
     /**
      * @Route("/annuaire", name="app_annuary", methods={"GET", "POST"})
      * @param UserRepository $userRepository
      * @param Request $request
      * @param EntityManagerInterface $em
+     * @param AgendaRepository $agenda
      * @return Response
+     * @throws \Exception
      */
-    public function show_annuary(UserRepository $userRepository,Request $request,EntityManagerInterface $em) :Response
+    public function show_annuary(UserRepository $userRepository,Request $request,EntityManagerInterface $em,AgendaRepository $agenda) :Response
     {
         if (!($this->getUser())) {
-            $this->addFlash('error', 'You must logged in');
+            $this->addFlash('error', 'Vous devez vous connectez!');
 
             return $this->redirectToRoute('app_login');
         }
+
+        // Liste des utilisateurs a afficher dans notre agenda
         $users = $userRepository->findBy([],['createdAt' => 'DESC']);
+
+        /* On recupère la liste des utilisateurs de l'agenda afin de verifier si une personne
+        qu'on veux ajouter parmis nos favoris ne s'y trouve pas déja.
+        */
+        $agendaUser = $agenda->findBy([],['createdAt' => 'DESC']);
+        $taille = count($agendaUser);
+        $i = 0;
 
         $favorite = new Agenda;
         if($request->isMethod('POST'))
@@ -123,11 +123,27 @@ class HomeController extends AbstractController
             $userId = $request->get('idUser');
             $ownerId = $this->get('security.token_storage')->getToken()->getUser()->getId();  //Id de l'utilisateur connecté
 
+            // On cree une variable afin de recupérer le nom de l'utilisateur qu'on veux rajouter à l'agenda
+            $doublon = $userRepository->find($userId);
+            $userName = $doublon->getFirstName();
+        /*
+          *On verifies que l'utilisateur qu'on veux rajouter aux favoris ne fait pas déja partie des favoris.
+        */
+           while ($i < $taille )
+           {
+               if ($agendaUser[$i]->getFirstName() == $userName)
+               {
+                   $this->addFlash('error', 'Cette personne fait déjà partie de vos favoris');
+                   return $this->redirectToRoute('app_annuary');
+               }
+               $i++;
+           }
+
 
             //On vérifies que celui qu'on veux ajouter comme utilisateur n'est pas l'utilisateur connecté
             if ($userId == $ownerId )
             {
-                $this->addFlash('error', 'You cannot add yourself as favorite');
+                $this->addFlash('error', 'Vous ne pouvez pas vous ajouter comme favori');
                 return $this->redirectToRoute('app_annuary');
             }
             $user = $userRepository->find(['id' => $userId]);
@@ -141,9 +157,8 @@ class HomeController extends AbstractController
             $em->persist($favorite);
             $em->flush();
 
-            $this->addFlash('success', 'User successfully added to agenda');
+            $this->addFlash('success', 'Favori ajouté avec succès à l agenda');
 
-            return $this->redirectToRoute('app_agenda');
         }
 
         return $this->render('home/annuary.html.twig', [
@@ -160,7 +175,7 @@ class HomeController extends AbstractController
     public function show_agenda(AgendaRepository $agendaRepository) :Response
     {
         if (!($this->getUser())) {
-            $this->addFlash('error', 'You must logged in');
+            $this->addFlash('error', 'Vous devez vous connectez!');
 
             return $this->redirectToRoute('app_login');
         }
@@ -190,96 +205,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/profil/edit", name="update_pass")
-     * @param Request $request
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @return RedirectResponse|Response
-     */
-public function update_pass(Request $request,UserPasswordEncoderInterface $passwordEncoder)
-{
-    if (!($this->getUser())) {
-        $this->addFlash('error', 'You must logged in');
-
-        return $this->redirectToRoute('app_login');
-    }
-    $entityManager = $this->getDoctrine()->getManager();
-    dump($request);
-    $old_pwd = $request->get('old_password'); 
-    $new_pwd = $request->get('new_password'); 
-    $new_pwd_confirm = $request->get('new_password_confirm');
-    $user = $this->getUser();
-    $checkPass = $passwordEncoder->isPasswordValid($user, $old_pwd);
-    if($checkPass === true) {
-        $new_pwd_encoded = $passwordEncoder->encodePassword($user, $new_pwd_confirm);  
-        $user->setPassword($new_pwd_encoded); 
-        $entityManager->flush();
-        $this->addFlash('info', 'Password successfully updated');
-    } else {
-        $this->addFlash('error', 'Mot de passe incorrect ');
-        return $this->redirectToRoute('update_profil');
-     }
-    
-       //update json file
-       $data2 = json_decode(file_get_contents(__DIR__.'/user_data.json'), true);
-
-       //search an element which the password has been modified in the database
-       foreach($data2 as $key => $data_users){
-           if(strcmp($user->getUsername(), $data_users['username']) === 0 ){
-               if(strcmp($user->getPassword(), $data_users['encryptPassword']) !== 0){
-                   $data_users[$key]['encryptPassword'] = $user->getPassword();
-
-                   file_put_contents(__DIR__.'/user_data.json', json_encode($data2)); 
-               }
-            }
-       }
-    
-    return $this->render('home/profile.html.twig', [
-        'controller_name' => 'HomeController',
-    ]);
-    
-}
-
-    /**
-     * @Route("/profil/editprofile", name="update_pseudo",methods = {"GET","POST"})
-     * @param Request $request
-     * @return RedirectResponse|Response
-     */
-public function update_pseudo(Request $request)
-{
-    if (!($this->getUser())) {
-        $this->addFlash('error', 'You must logged in');
-
-        return $this->redirectToRoute('app_login');
-    }
-    $entityManager = $this->getDoctrine()->getManager();
-    dump($request);
-    $new_username = $request->get('username'); 
-    $user = $this->getUser();
-    $user->setUsername($new_username);
-    $entityManager->flush();
-    $this->addFlash('info', 'Username successfully updated');
-
-    //UUPDATE JSON FLE
-    $data2 = json_decode(file_get_contents(__DIR__.'/user_data.json'), true);
-    //get all users from the database
-    $em = $this->getDoctrine()->getManager();
-    $TheUsers = $em->getRepository(User::class)
-        ->findAll();
-
-    foreach($data2 as $key => $data_users){
-        if((strcmp($user->getFirstName(), $data_users['firstname']) === 0) && (strcmp($user->getLastName(), $data_users['lastname']) === 0)) {
-            $data2[$key]['username'] = $new_username; 
-            file_put_contents(__DIR__.'/user_data.json', json_encode($data2)); 
-            break;
-        }
-    }
-
-    return $this->render('home/profile.html.twig', [
-        'controller_name' => 'HomeController',
-    ]);
-    
-}
 
     /**
      * @Route("/users/{id<[0-9]+>}/deleteUser", name="delete_user", methods={"DELETE"})
@@ -295,7 +220,7 @@ public function update_pseudo(Request $request)
             $em->remove($user);
             $em->flush();
 
-            $this->addFlash('info', 'User successfully deleted');
+            $this->addFlash('info', 'Favori supprimé avec succès');
         }
         return $this->redirectToRoute('app_agenda') ;
     }

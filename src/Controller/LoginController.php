@@ -30,6 +30,8 @@ class LoginController extends AbstractController
             $user->setUsername($data_users['username']);
             $user->setPassword($data_users['encryptPassword']);
             $user->setStatus($data_users['statut']);
+            $user->setCreatedAt(new \DateTime());
+            $user->setUpdatedAt(new \DateTime());
 
             //check if user already exists
             $AnUser = $this->getDoctrine()
