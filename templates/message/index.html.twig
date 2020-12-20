@@ -86,7 +86,7 @@
                             {% else %}
                                 {% for conv in conversationArray %}
                                     <a href="#" class="list-group-item list-group-item-action {% if conv.id == IdConvActive %} active {% endif %}list-group-item-light rounded-0 conv" data-id="{{ conv.id }}">
-                                        <div class="media"><img src="{{ asset('assets/images/profil2.jpg') }}" alt="user" width="50" height="50" class="rounded-circle">
+                                        <div class="media"><img src="{{ asset('assets/profils/icon.png') }}" alt="user" width="50" height="50" class="rounded-circle">
                                             <div class="media-body ml-4">
                                                 <div class="d-flex align-items-center justify-content-between mb-1">
                                                     {% for convers in conversations %}
@@ -129,7 +129,7 @@
                                     </div>
                                 {% else %}
                                     <!--div class="icon icon-shape bg-danger text-white rounded-circle shadow" style="width:60px !important;height:80px !important;display:inline;"-->
-                                    <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1" style="margin-left:-15px !important" width="40px" height="40" class="rounded-circle" >
+                                    <img src="{{ asset('assets/profils/icon.png') }}" id="img1" style="margin-left:-15px !important" width="40px" height="40" class="rounded-circle" >
                                     <!--/div-->
                                     {% for conv in conversationArray %}
                                         {% for convers in conversations %}
@@ -156,7 +156,7 @@
                                                                             <div class="col-md-12" style="background-color: #FFFFFF;">
                                                                                 <div class="email-signature">
                                                                                     <div class="signature-icon">
-                                                                                        <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1" width="80px" height="80px" class="rounded-circle" onclick="document.getElementById('id02').style.display='block'">
+                                                                                        <img src="{{ asset('assets/profils/icon.png') }}" id="img1" width="80px" height="80px" class="rounded-circle" onclick="document.getElementById('id02').style.display='block'">
                                                                                     </div>
                                                                                     <div class="signature-details">
                                                                                         <h2 class="title"> {{ part.user.firstname }} {{ part.user.lastname }}</h2>
@@ -191,7 +191,7 @@
                                                                     <div class="col-md-12" style="background-color: #FFFFFF;">
                                                                         <div class="email-signature">
                                                                             <div class="signature-icon">
-                                                                                <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1"  width="80px" height="80px" class="rounded-circle" onclick="document.getElementById('id02').style.display='block'">
+                                                                                <img src="{{ asset('assets/profils/icon.png') }}" id="img1"  width="80px" height="80px" class="rounded-circle" onclick="document.getElementById('id02').style.display='block'">
                                                                             </div>
                                                                             <div class="signature-details">
                                                                                 <h2 class="title">{{ convers.nom }}</h2>
@@ -249,7 +249,7 @@
                                 {% for msg in conv.messages %}
                                         {% if msg.user.id != userId %}
                                             <!-- Sender Message-->
-                                            <div class="media w-50 mb-3"><img src="{{ asset('assets/images/profil2.jpg') }}" alt="user" width="50" class="rounded-circle">
+                                            <div class="media w-50 mb-3"><img src="{{ asset('assets/profils/icon.png') }}" alt="user" width="50" class="rounded-circle">
                                                 <div class="media-body ml-3">
                                                     <div class="bg-light rounded py-2 px-3 mb-2">
                                                         <p class="text-small mb-0 text-muted">{{ msg.content }}</p>

@@ -41,15 +41,17 @@
                         <a class="nav-link" href="{{ path('app_profil',{id: app.user.id}) }}"><i class="fas fa-user fa-lg fn" ></i>  {{   app.user.userName }}</a>
                     </li>
                     <li>
+                        <form role="form" method="POST" action="{{ path ('update_statut') }}">
                             <!--a class="nav-link" href="#"><i class="far fa-eye fa-lg fn" ></i> Statut</a-->
                             <div class="dropdown">
                                 <a class="nav-link" href="#" role="button" id="deroulanta" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-eye fa-lg fn" ></i> Statut </a>
                                 <div class="dropdown-menu" aria-labelledby="deroulanta">
-                                    <a class="dropdown-item" href="#">En ligne</a>
-                                    <button class="dropdown-item" type="button">Hors ligne</button>
-                                    <span class="dropdown-item-text">Ocuppé</span>
+                                    <button class="dropdown-item" name="stat" value="1" type="submit">En ligne  <span style="height:8px;width:8px;background-color: #0fb513;border-radius: 50%;display: inline-block;"></button>
+                                    <button class="dropdown-item" name="stat" value="2" type="submit">Hors ligne  <span style="height:8px;width:8px;background-color: #bbb;border-radius: 50%;display: inline-block;"></button>
+                                    <button class="dropdown-item" name="stat" value="3" type="submit">occupé  <span style="height:8px;width:8px;background-color: darkred;border-radius: 50%;display: inline-block;"></button>
                                 </div>
-                            </div> 
+                            </div>
+                        </form>
                     </li>
                     <li>
                         <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt fa-lg fn"></i> Deconnexion</a>
