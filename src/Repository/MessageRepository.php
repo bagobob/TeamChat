@@ -47,4 +47,17 @@ class MessageRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function findWithSearch($conversation,$content)
+    {
+        $query = $this
+            ->createQueryBuilder('m')
+            ->andWhere('m.conversation=:conversation')
+            ->andWhere('m.content LIKE :content')
+            ->setParameter('conversation',$conversation)
+            ->setParameter('content', $content)
+            ;
+        return $query->getQuery()->getResult();
+    }
 }

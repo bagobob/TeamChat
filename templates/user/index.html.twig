@@ -88,7 +88,7 @@
             <!-- Beginning of User Profil Picture-->
             <div class="col-lg-4 order-lg-1 text-center">
                 {% if vich_uploader_asset(user) is null %}
-                        <img src="{{ asset('assets/profils/profil2.jpg') }}" alt="{{ user.firstName }}" id="img1" width="200px" height="200" class="rounded-circle" />
+                        <img src="{{ asset('assets/profils/icon.png') }}" alt="{{ user.firstName }}" id="img1" width="200px" height="200" class="rounded-circle" />
                 {% else %}
                         <img src="{{ vich_uploader_asset(user)|imagine_filter("squared_thumbnail_medium") }}" alt="{{ user.imageFile }}" id="img1" width="200px" height="200" class="rounded-circle" />
                 {% endif %}
