@@ -47,6 +47,7 @@ class MessageController extends AbstractController
         $conversations = $this->conversationRepository->findConversationsByUser($this->getUser()->getId());
         $flag=true;
         $idConvActive=0;
+        dump($conversations);
         foreach ($conversations as $conversation)
         {
 
@@ -61,7 +62,7 @@ class MessageController extends AbstractController
         $userId=$this->getUser()->getId();
         //Pour le select
         $users = $userRepository->findBy([],['createdAt' => 'DESC']);
-
+        dump($conversationArray);
         $taille = count($users) ;
         //Je crée un tableau pour stocker les utilisateurs que l'utilisateur courant a rajouté à l'agenda
         $data = array();

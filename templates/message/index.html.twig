@@ -80,31 +80,37 @@
 
                     <div class="messages-box">
                         <div class="list-group rounded-0">
-                            {% for conv in conversationArray %}
-
-                            <a href="#" class="list-group-item list-group-item-action {% if conv.id == IdConvActive %} active {% endif %}list-group-item-light rounded-0 conv" data-id="{{ conv.id }}">
-                                <div class="media"><img src="{{ asset('assets/images/profil2.jpg') }}" alt="user" width="50" height="50" class="rounded-circle">
-                                    <div class="media-body ml-4">
-                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                            {% for convers in conversations %}
-                                            {% if convers.conversationId == conv.id  %}
-                                                {% if convers.nom == null  %}
-                                                    {% for part in conv.participants %}
-                                                        {% if part.user.id != userId  %}
-                                                            <h6 class="mb-0">{{ part.user.firstname }} {{ part.user.lastname }}</h6><small class="small font-weight-bold"></small>
+                            {% if conversationArray is empty %}
+                                <div class="px-4 py-5 chat-box bg-white media" style="margin-bottom: 100px !important;" >
+                                    <img src="{{ asset('assets/images/nicepic.jpg') }}" id="img1" style="margin-left:40px !important" width="40px" height="40" class="rounded-circle">
+                                    <label for="erreur" >vous n'avez pas de conversation !!</label>
+                                </div>
+                            {% else %}
+                                {% for conv in conversationArray %}
+                                    <a href="#" class="list-group-item list-group-item-action {% if conv.id == IdConvActive %} active {% endif %}list-group-item-light rounded-0 conv" data-id="{{ conv.id }}">
+                                        <div class="media"><img src="{{ asset('assets/images/profil2.jpg') }}" alt="user" width="50" height="50" class="rounded-circle">
+                                            <div class="media-body ml-4">
+                                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                                    {% for convers in conversations %}
+                                                        {% if convers.conversationId == conv.id  %}
+                                                            {% if convers.nom == null  %}
+                                                                {% for part in conv.participants %}
+                                                                    {% if part.user.id != userId  %}
+                                                                        <h6 class="mb-0">{{ part.user.firstname }} {{ part.user.lastname }}</h6><small class="small font-weight-bold"></small>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <h6 class="mb-0"> {{ convers.nom }}</h6><small class="small font-weight-bold"></small>
+                                                            {% endif %}
                                                         {% endif %}
                                                     {% endfor %}
-                                                {% else %}
-                                                    <h6 class="mb-0"> {{ convers.nom }}</h6><small class="small font-weight-bold"></small>
-                                                {% endif %}
-                                            {% endif %}
-                                {% endfor %}
+                                                </div>
+                                                <p class="font-italic mb-0 text-small">  {{ conv.lastMessage.content }} </p>
+                                            </div>
                                         </div>
-                                        <p class="font-italic mb-0 text-small">  {{ conv.lastMessage.content }} </p>
-                                    </div>
-                                </div>
-                            </a>
-                            {% endfor %}
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                     {% block left %}
@@ -113,57 +119,86 @@
                 </div>
             </div>
             <!-- Chat Box-->
-
             <div class="col-7 px-0 " >
                 <div class="bg-white">
                     <div class="bg-gray px-4 py-2 bg-light row">
                         <div class="col-md-10">
                             <!--p class="h5 mb-0 py-1" style="margin-top:5px;text-align: center">photo + name</p-->
                             <!-- Beginning of User Profil Picture-->
-                                <div class="col-lg-4 order-lg-1 text-center nis">
-                                        <!--div class="icon icon-shape bg-danger text-white rounded-circle shadow" style="width:60px !important;height:80px !important;display:inline;"-->
-                                        <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1" style="margin-left:-15px !important" width="40px" height="40" class="rounded-circle">
-                                        <!--/div-->
-                                        <b style="margin-left:10px;display:inline;">  Nisrine</b> 
-                                        <div class="box" style="margin-left:70px !important">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                            <input type="text" name="search">
-                                        </div>
-                                        <label style="margin-left:50px;">En ligne</label>
+                            <div class="w3-container">
+                                <!--div class="icon icon-shape bg-danger text-white rounded-circle shadow" style="width:60px !important;height:80px !important;display:inline;"-->
+                                <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1" style="margin-left:-15px !important" width="40px" height="40" class="rounded-circle" onclick="document.getElementById('id02').style.display='block'">
+                                <!--/div-->
+                                <b style="margin-left:10px;display:inline;" onclick="document.getElementById('id02').style.display='block'">  Nisrine</b>
+                                <div class="box" style="margin-left:70px !important;">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    <input type="text" name="search">
                                 </div>
-                               
-                             <!-- End of User Profil Picture-->
+                                <label style="margin-left:50px;">En ligne</label>
+                                <div id="id02" class="w3-modal">
+                                    <div class="w3-modal-content w3-card-4">
+                                        <header class="modal-header" style="background-color: #ffe6e6 !important;">
+                                            <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                                        </header>
+                                        <div class="w3-container demo" style="width: 100%;background-color: #FFFFFF;">
+                                            <div class="col-md-12" style="background-color: #FFFFFF;">
+                                                <div class="email-signature">
+                                                    <div class="signature-icon">
+                                                        <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1" style="margin-left:-15px !important" width="80px" height="80px" class="rounded-circle" onclick="document.getElementById('id02').style.display='block'">
+                                                    </div>
+                                                    <div class="signature-details">
+                                                        <h2 class="title">Williamson</h2>
+                                                        <span class="post">web developer</span>
+                                                    </div>
+                                                    <ul class="signature-content">
+                                                        <li><span>Address</span> :Saint denis </li>
+                                                        <li><span>Mobile</span> : 0668865659</li>
+                                                        <li><span>Email</span> : w@gmail.com</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <footer class="modal-footer" style="background:#ffe6e6;">
+                                        </footer>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    {% for conv in conversationArray %}
-                    <div class="px-4 py-5 chat-box bg-white msg-conv" data-id="{{ conv.id }}" {% if conv.id != IdConvActive %}hidden {% endif %} >
-                        {% for msg in conv.messages %}
-                                {% if msg.user.id != userId %}
-                                    <!-- Sender Message-->
-                                    <div class="media w-50 mb-3"><img src="{{ asset('assets/images/profil2.jpg') }}" alt="user" width="50" class="rounded-circle">
-                                        <div class="media-body ml-3">
-                                            <div class="bg-light rounded py-2 px-3 mb-2">
-                                                <p class="text-small mb-0 text-muted">{{ msg.content }}</p>
+                    {% if conversationArray is empty %}
+                        <div class="px-4 py-5 chat-box bg-white msg-conv"  >
+                            <img src="{{ asset('assets/images/nicepic.jpg') }}" id="img1" style="margin-left:25% !important;" width="40px" height="40" class="rounded-circle">
+                            <label for="erreur">vous n'avez pas de conversation !!</label>
+                        </div>
+                    {% else %}
+                        {% for conv in conversationArray %}
+                            <div class="px-4 py-5 chat-box bg-white msg-conv" data-id="{{ conv.id }}" {% if conv.id != IdConvActive %}hidden {% endif %} >
+                                {% for msg in conv.messages %}
+                                        {% if msg.user.id != userId %}
+                                            <!-- Sender Message-->
+                                            <div class="media w-50 mb-3"><img src="{{ asset('assets/images/profil2.jpg') }}" alt="user" width="50" class="rounded-circle">
+                                                <div class="media-body ml-3">
+                                                    <div class="bg-light rounded py-2 px-3 mb-2">
+                                                        <p class="text-small mb-0 text-muted">{{ msg.content }}</p>
+                                                    </div>
+                                                    <p class="small text-muted">{{ msg.createdAt|date("F jS \\a\\t g:ia") }}</p>
+                                                </div>
                                             </div>
-                                            <p class="small text-muted">{{ msg.createdAt|date("F jS \\a\\t g:ia") }}</p>
-                                        </div>
-                                    </div>
-                                {% else %}
-                                    <!-- Receiver Message-->
-                                    <div class="media w-50 ml-auto mb-3">
-                                        <div class="media-body">
-                                            <div class="bg-primary rounded py-2 px-3 mb-2">
-                                                <p class="text-small mb-0 text-white">{{ msg.content }}</p>
+                                        {% else %}
+                                            <!-- Receiver Message-->
+                                            <div class="media w-50 ml-auto mb-3">
+                                                <div class="media-body">
+                                                    <div class="bg-primary rounded py-2 px-3 mb-2">
+                                                        <p class="text-small mb-0 text-white">{{ msg.content }}</p>
+                                                    </div>
+                                                    <p class="small text-muted">{{ msg.createdAt|date("F jS \\a\\t g:ia") }}</p>
+                                                </div>
                                             </div>
-                                            <p class="small text-muted">{{ msg.createdAt|date("F jS \\a\\t g:ia") }}</p>
-                                        </div>
-                                    </div>
-                                {% endif %}
+                                        {% endif %}
+                                {% endfor %}
+                            </div>
                         {% endfor %}
-                    </div>
-
-                {% endfor %}
+                    {% endif %}
                     <div id="mercure-content-receiver"></div>
                     <form class="bg-light" id="mercure-message-form" action="{{ path('sendMessage') }}" method="post">
                         <div class="input-group">
@@ -185,6 +220,7 @@
 {% endblock %}
 {% block javascripts %}
     <script>
+        /*Author : khadija */
     document.addEventListener("DOMContentLoaded", function() {
         [].forEach.call(document.querySelectorAll('a.conv'), function(el) {
             el.addEventListener('click', function() {
