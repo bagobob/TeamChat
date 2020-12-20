@@ -64,4 +64,5 @@ input::placeholder {
 }
 .fn ,.nav-link,.navbar-brand{
   color: #fff !important;
+  /*margin-right: 30px !important;*/
 }
