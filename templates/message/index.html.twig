@@ -21,7 +21,6 @@
                             <div class="w3-container">
                                 <button class="bt" onclick="document.getElementById('id01').style.display='block'"><img width="30px" height="30px" src="{{ asset('assets/images/plus2.png') }}"></button>
                                 <div id="id01" class="w3-modal">
-
                                         <div class="w3-modal-content w3-card-4">
                                             <header class="modal-header">
                                                 <span onclick="document.getElementById('id01').style.display='none'"
@@ -72,7 +71,6 @@
                                             <footer class="modal-footer" style="background:#ffe6e6;">
                                             </footer>
                                         </div>
-
                                 </div>
                             </div>
                         </div>
@@ -96,7 +94,7 @@
                                                             {% if convers.nom == null  %}
                                                                 {% for part in conv.participants %}
                                                                     {% if part.user.id != userId  %}
-                                                                        <h6 class="mb-0">{{ part.user.firstname }} {{ part.user.lastname }}</h6><small class="small font-weight-bold"></small>
+                                                                        <h6 class="mb-0" >{{ part.user.firstname }} {{ part.user.lastname }}</h6><small class="small font-weight-bold"></small>
                                                                     {% endif %}
                                                                 {% endfor %}
                                                             {% else %}
@@ -113,9 +111,6 @@
                             {% endif %}
                         </div>
                     </div>
-                    {% block left %}
-
-                    {% endblock %}
                 </div>
             </div>
             <!-- Chat Box-->
@@ -125,43 +120,121 @@
                         <div class="col-md-10">
                             <!--p class="h5 mb-0 py-1" style="margin-top:5px;text-align: center">photo + name</p-->
                             <!-- Beginning of User Profil Picture-->
+
                             <div class="w3-container">
-                                <!--div class="icon icon-shape bg-danger text-white rounded-circle shadow" style="width:60px !important;height:80px !important;display:inline;"-->
-                                <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1" style="margin-left:-15px !important" width="40px" height="40" class="rounded-circle" onclick="document.getElementById('id02').style.display='block'">
-                                <!--/div-->
-                                <b style="margin-left:10px;display:inline;" onclick="document.getElementById('id02').style.display='block'">  Nisrine</b>
-                                <div class="box" style="margin-left:70px !important;">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                    <input type="text" name="search">
-                                </div>
-                                <label style="margin-left:50px;">En ligne</label>
-                                <div id="id02" class="w3-modal">
-                                    <div class="w3-modal-content w3-card-4">
-                                        <header class="modal-header" style="background-color: #ffe6e6 !important;">
-                                            <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                                        </header>
-                                        <div class="w3-container demo" style="width: 100%;background-color: #FFFFFF;">
-                                            <div class="col-md-12" style="background-color: #FFFFFF;">
-                                                <div class="email-signature">
-                                                    <div class="signature-icon">
-                                                        <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1" style="margin-left:-15px !important" width="80px" height="80px" class="rounded-circle" onclick="document.getElementById('id02').style.display='block'">
-                                                    </div>
-                                                    <div class="signature-details">
-                                                        <h2 class="title">Williamson</h2>
-                                                        <span class="post">web developer</span>
-                                                    </div>
-                                                    <ul class="signature-content">
-                                                        <li><span>Address</span> :Saint denis </li>
-                                                        <li><span>Mobile</span> : 0668865659</li>
-                                                        <li><span>Email</span> : w@gmail.com</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <footer class="modal-footer" style="background:#ffe6e6;">
-                                        </footer>
+                                {% if conversationArray is empty %}
+                                    <div class="box" style="margin-left:70px !important;">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                        <input type="text" name="search">
                                     </div>
-                                </div>
+                                {% else %}
+                                    <!--div class="icon icon-shape bg-danger text-white rounded-circle shadow" style="width:60px !important;height:80px !important;display:inline;"-->
+                                    <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1" style="margin-left:-15px !important" width="40px" height="40" class="rounded-circle" >
+                                    <!--/div-->
+                                    {% for conv in conversationArray %}
+                                        {% for convers in conversations %}
+                                            {% if convers.conversationId == conv.id  %}
+                                                {% if convers.nom == null  %}
+                                                    {% for part in conv.participants %}
+                                                        {% if part.user.id != userId  %}
+                                                                <b  class ="msg-part" data-id="{{ conv.id }}" {% if conv.id != IdConvActive %}hidden {% endif %} style="margin-left:10px;display:inline;" onclick="document.getElementById('{{ conv.id }}').style.display='block'">
+                                                                    {{ part.user.firstname }} {{ part.user.lastname }}
+                                                                    {% if part.user.status == '1' %}
+                                                                        <span style="height:8px;width:8px;background-color: #0fb513;border-radius: 50%;display: inline-block;"></span>
+                                                                    {% elseif part.user.status == '2'  %}
+                                                                        <span style="height:8px;width:8px;background-color: #bbb;border-radius: 50%;display: inline-block;"></span>
+                                                                    {% elseif part.user.status == '3' %}
+                                                                        <span style="height:8px;width:8px;background-color: darkred;border-radius: 50%;display: inline-block;"></span>
+                                                                    {% endif %}
+                                                                </b>
+                                                                <div id="{{ conv.id }}"  class="w3-modal msg-part ">
+                                                                    <div class="w3-modal-content w3-card-4">
+                                                                        <header class="modal-header" style="background-color: #ffe6e6 !important;">
+                                                                            <span onclick="document.getElementById('{{ conv.id }}').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                                                                        </header>
+                                                                        <div class="w3-container demo" style="width: 100%;background-color: #FFFFFF;">
+                                                                            <div class="col-md-12" style="background-color: #FFFFFF;">
+                                                                                <div class="email-signature">
+                                                                                    <div class="signature-icon">
+                                                                                        <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1" width="80px" height="80px" class="rounded-circle" onclick="document.getElementById('id02').style.display='block'">
+                                                                                    </div>
+                                                                                    <div class="signature-details">
+                                                                                        <h2 class="title"> {{ part.user.firstname }} {{ part.user.lastname }}</h2>
+                                                                                        <span class="post">{{ part.user.username }}</span>
+                                                                                    </div>
+                                                                                    <ul class="signature-content">
+                                                                                        {% if part.user.status == '1' %}
+                                                                                            <li><span>statut </span> : En ligne   <span style="height:8px;width:8px;background-color: #0fb513;border-radius: 50%;display: inline-block;"></li>
+                                                                                        {% elseif part.user.status == '2'  %}
+                                                                                            <li><span>statut </span> : Hors ligne   <span style="height:8px;width:8px;background-color: #bbb;border-radius: 50%;display: inline-block;"></li>
+                                                                                        {% elseif part.user.status == '3' %}
+                                                                                            <li><span>statut </span> : Occupé   <span style="height:8px;width:8px;background-color: darkred;border-radius: 50%;display: inline-block;"></li>
+                                                                                        {% endif %}
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <footer class="modal-footer" style="background:#ffe6e6;">
+                                                                        </footer>
+                                                                    </div>
+                                                                </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                        <b class ="msg-part" data-id="{{ conv.id }}" {% if conv.id != IdConvActive %}hidden {% endif %} style="margin-left:10px;display:inline;" onclick="document.getElementById('{{ conv.id }}').style.display='block'">  {{ convers.nom }}</b>
+                                                        <div id="{{ conv.id }}" class="w3-modal msg-part">
+                                                            <div class="w3-modal-content w3-card-4">
+                                                                <header class="modal-header" style="background-color: #ffe6e6 !important;">
+                                                                    <span onclick="document.getElementById('{{ conv.id }}').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                                                                </header>
+                                                                <div class="w3-container demo" style="width: 100%;background-color: #FFFFFF;">
+                                                                    <div class="col-md-12" style="background-color: #FFFFFF;">
+                                                                        <div class="email-signature">
+                                                                            <div class="signature-icon">
+                                                                                <img src="{{ asset('assets/images/profil2.jpg') }}" id="img1"  width="80px" height="80px" class="rounded-circle" onclick="document.getElementById('id02').style.display='block'">
+                                                                            </div>
+                                                                            <div class="signature-details">
+                                                                                <h2 class="title">{{ convers.nom }}</h2>
+                                                                                <span class="post">Groupe</span>
+                                                                            </div>
+                                                                            <ul class="signature-content">
+                                                                                <li>
+                                                                                    <span>Participants :</span>
+                                                                                    <br>
+                                                                                    {% for part in conv.participants %}
+                                                                                        {{ part.user.firstname }} {{ part.user.lastname }} :
+                                                                                            {% if part.user.status == '1' %}
+                                                                                                <span>En ligne</span>
+                                                                                                <span style="height:5px;width:5px;background-color: #0fb513;border-radius: 50%;display: inline-block;"></span>
+                                                                                            {% elseif part.user.status == '2'  %}
+                                                                                                <span>Hors ligne  </span>
+                                                                                                <span style="height:5px;width:5px;background-color: #bbb;border-radius: 50%;display: inline-block;"></span>
+                                                                                            {% elseif part.user.status == '3' %}
+                                                                                                <span>Occupé </span>
+                                                                                                <span style="height:5px;width:5px;background-color: darkred;border-radius: 50%;display: inline-block;"></span>
+                                                                                            {% endif %}
+                                                                                            <br>
+                                                                                    {% endfor %}
+                                                                                </li>
+
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <footer class="modal-footer" style="background:#ffe6e6;">
+                                                                </footer>
+                                                            </div>
+                                                        </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                    <div class="box" style="margin-left:20px !important;">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                        <input type="text" name="search">
+                                    </div>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>
@@ -231,11 +304,17 @@
                 });
                 [].forEach.call(document.querySelectorAll('div.msg-conv'), function(el) {
                     el.setAttribute("hidden","");
-                })
+                });
+                [].forEach.call(document.querySelectorAll('b.msg-part'), function(el) {
+                    el.setAttribute("hidden","");
+                });
+
+
 
                 //show and active
                 var conv_id_active = el.getAttribute("data-id");
                 document.querySelector('div.msg-conv[data-id="'+conv_id_active+'"]').removeAttribute("hidden");
+                document.querySelector('b.msg-part[data-id="'+conv_id_active+'"]').removeAttribute("hidden");
                 el.classList.add("active");
 
                 //change conversation submit

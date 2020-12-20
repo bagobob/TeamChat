@@ -232,4 +232,30 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
         ));
     }
+    /**
+     * @Route("/update", name="update_statut")
+     * @param Request $request
+     * @return RedirectResponse|Response
+     * @author khadija
+     */
+    public function update_pass(Request $request)
+    {
+        if (!($this->getUser())) {
+            $this->addFlash('error', 'You must logged in');
+
+            return $this->redirectToRoute('app_login');
+        }
+        $entityManager = $this->getDoctrine()->getManager();
+        ///dump($request);
+        //die();
+        $statut = $request->get('stat');
+        $user = $this->getUser();
+        $user->setStatus($statut);
+        $entityManager->flush();
+        $this->addFlash('info', 'Votre statut a été modifié');
+
+
+        return $this->redirectToRoute('app_home') ;
+
+    }
 }
