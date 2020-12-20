@@ -37,14 +37,14 @@
                         <a class="nav-link" href="{{ path('app_profil') }}"><i class="fas fa-user fa-lg fn" ></i>  {{   app.user.userName }}</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt fa-lg fn"></i> Logout</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt fa-lg fn"></i> Deconnexion</a>
                     </li>
                     <!--li>
                         <a class="nav-link" href="{{ path('agenda') }}"><i class="fas fa-sign-out-alt fa-lg fn"></i> select</a>
                     </li-->
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt fa-lg fn"></i>  Login</a>
+                        <a class="nav-link" href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt fa-lg fn"></i>  Se connecter</a>
                     </li>
                 {% endif %}
             </ul>
